@@ -8,15 +8,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @RestController
-public class DemoApplication {
+public class BackendProjectApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
+		SpringApplication.run(BackendProjectApplication.class, args);
 	}
 
 	@GetMapping("/hello")
-	public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
-		return String.format("Hello %s!", name) + "\n This is the first page: There are two more controllers (/hi /cole)";
+	public String hello(@RequestParam(value = "name", defaultValue = "UG_02") String name) {
+		return String.format("Hello %s!", name);
 	}
-	
 }

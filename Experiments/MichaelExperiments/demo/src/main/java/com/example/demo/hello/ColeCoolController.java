@@ -10,4 +10,5 @@ public class ColeCoolController {
 	public String sayHi() {
 		return "Cole is very cool! This is the third controller.";
 	}
+	
 }

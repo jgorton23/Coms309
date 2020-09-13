@@ -1,22 +1,24 @@
-package com.example.demo.hello;
+package com.example.Requests;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+	
 @RestController
-public class HelloController {
+public class RequestController {
+
+	public RequestModel requestModelMessage = new RequestModel("Hello, this statement was made by an model.", 1);
 	
-	private modelHello helloMessage = new modelHello("Hello, this statement was made by an model(?).");
-	
-	@RequestMapping("/hi")
+	@RequestMapping("/hello2")
 	public String sayHi() {
-		return helloMessage.getMessage();
+		return requestModelMessage.getMessage();
 	}
 	
-	@PostMapping("/hi")
+	@PostMapping("/hello2")
 	public void addMessage(@RequestBody String s) {
-		helloMessage.addString(s);
+		requestModelMessage.addString(s);
 	}
+	
+	
 }
