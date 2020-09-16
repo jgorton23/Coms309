@@ -3,6 +3,12 @@ package iastate.cs309.myexpenses;
 import android.app.Activity;
 import android.os.Bundle;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 import androidx.fragment.app.Fragment;
@@ -11,6 +17,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import org.json.JSONArray;
 
 import iastate.cs309.myexpenses.dummy.DummyContent;
 
@@ -66,7 +74,34 @@ public class ItemDetailFragment extends Fragment {
         if (mItem != null) {
             ((TextView) rootView.findViewById(R.id.item_detail)).setText(mItem.details);
         }
-
+        loadData(rootView);
         return rootView;
+    }
+
+    private void loadData(View rootView) {
+
+        final TextView textView = rootView.findViewById(R.id.item_detail);
+        String url = "http://coms-309-ug-02.cs.iastate.edu:8080/persons";
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        textView.setText("Response: " + response.toString());
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        textView.setText("Error " + error.getMessage());
+                        // TODO: Handle error
+
+                    }
+                });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+
+        requestQueue.add(jsonArrayRequest);
     }
 }
