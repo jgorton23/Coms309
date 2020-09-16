@@ -63,8 +63,8 @@ public class Profile extends Fragment {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.profile, container, false);
-//        Button backBtn = view.findViewById(R.id.backBtn);
-        view.setOnClickListener(new View.OnClickListener() {
+        Button backBtn = view.findViewById(R.id.button);
+        backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.profile_to_home_screen);
