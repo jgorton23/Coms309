@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/homeScreen">
+
+    <fragment
+        android:id="@+id/homeScreen"
+        android:name="com.example.pocketsavings.HomeScreen"
+        android:label="home_screen"
+        tools:layout="@layout/home_screen" >
+        <action
+            android:id="@+id/home_to_profile_screen"
+            app:destination="@id/profile" />
+        <action
+            android:id="@+id/action_homeScreen_to_addItem"
+            app:destination="@id/addItem" />
+    </fragment>
+    <fragment
+        android:id="@+id/profile"
+        android:name="com.example.pocketsavings.Profile"
+        android:label="profile"
+        tools:layout="@layout/profile" >
+        <action
+            android:id="@+id/profile_to_home_screen"
+            app:destination="@id/homeScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/addItem"
+        android:name="com.example.pocketsavings.AddItem"
+        android:label="add_item"
+        tools:layout="@layout/add_item" />
+</navigation>
