@@ -9,6 +9,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -17,8 +23,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import iastate.cs309.myexpenses.dummy.DummyContent;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -69,7 +81,48 @@ public class ItemListActivity extends AppCompatActivity {
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, DummyContent.ITEMS, mTwoPane));
+        loadData(recyclerView);
+    }
+
+    private void loadData(final RecyclerView recyclerView) {
+        String url = "http://coms-309-ug-02.cs.iastate.edu:8080/items";
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        ArrayList<DummyContent.DummyItem> listdata = new ArrayList<DummyContent.DummyItem>();
+                        if (response != null) {
+
+                            for (int i=0;i<response.length();i++){
+                                try {
+                                    JSONObject jsonObject = response.getJSONObject(i);
+                                    DummyContent.DummyItem item = new DummyContent.DummyItem(
+                                            jsonObject.getString("id"),
+                                            jsonObject.getString("notes"),
+                                            jsonObject.getString("notes"),
+                                            new BigDecimal(jsonObject.getDouble("price")),
+                                            jsonObject.getString("catagory"));
+                                    listdata.add(item);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(ItemListActivity.this, listdata, mTwoPane));
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO: Handle error
+                    }
+                });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        requestQueue.add(jsonArrayRequest);
     }
 
     public static class SimpleItemRecyclerViewAdapter

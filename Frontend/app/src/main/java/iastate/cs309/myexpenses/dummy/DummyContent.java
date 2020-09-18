@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
-import iastate.cs309.myexpenses.Category;
-
 /**
  * Helper class for providing sample content for user interfaces created by
  * Android template wizards.
@@ -43,9 +41,7 @@ public class DummyContent {
 
     private static DummyItem createDummyItem(int position) {
         int randomAmount = ThreadLocalRandom.current().nextInt(5, 50);
-        int categoryIndex = ThreadLocalRandom.current().nextInt(0, Category.values().length);
-        Category category = Category.values()[categoryIndex];
-        return new DummyItem(String.valueOf(position), "Item " + position, makeDetails(position), new BigDecimal(randomAmount), category);
+        return new DummyItem(String.valueOf(position), "Item " + position, makeDetails(position), new BigDecimal(randomAmount), "todo");
     }
 
     private static String makeDetails(int position) {
@@ -65,9 +61,9 @@ public class DummyContent {
         public final String content;
         public final String details;
         public final BigDecimal amount;
-        public final Category category;
+        public final String category;
 
-        public DummyItem(String id, String content, String details, BigDecimal amount, Category category) {
+        public DummyItem(String id, String content, String details, BigDecimal amount, String category) {
             this.id = id;
             this.content = content;
             this.details = details;
