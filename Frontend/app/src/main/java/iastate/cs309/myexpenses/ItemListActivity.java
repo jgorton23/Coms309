@@ -92,13 +92,13 @@ public class ItemListActivity extends AppCompatActivity {
 
                     @Override
                     public void onResponse(JSONArray response) {
-                        ArrayList<DummyContent.DummyItem> listdata = new ArrayList<DummyContent.DummyItem>();
+                        ArrayList<DummyContent.Expense> listdata = new ArrayList<DummyContent.Expense>();
                         if (response != null) {
 
                             for (int i=0;i<response.length();i++){
                                 try {
                                     JSONObject jsonObject = response.getJSONObject(i);
-                                    DummyContent.DummyItem item = new DummyContent.DummyItem(
+                                    DummyContent.Expense item = new DummyContent.Expense(
                                             jsonObject.getString("id"),
                                             jsonObject.getString("notes"),
                                             jsonObject.getString("notes"),
@@ -129,12 +129,12 @@ public class ItemListActivity extends AppCompatActivity {
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
         private final ItemListActivity mParentActivity;
-        private final List<DummyContent.DummyItem> mValues;
+        private final List<DummyContent.Expense> mValues;
         private final boolean mTwoPane;
         private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DummyContent.DummyItem item = (DummyContent.DummyItem) view.getTag();
+                DummyContent.Expense item = (DummyContent.Expense) view.getTag();
                 if (mTwoPane) {
                     Bundle arguments = new Bundle();
                     arguments.putString(ItemDetailFragment.ARG_ITEM_ID, item.id);
@@ -154,7 +154,7 @@ public class ItemListActivity extends AppCompatActivity {
         };
 
         SimpleItemRecyclerViewAdapter(ItemListActivity parent,
-                                      List<DummyContent.DummyItem> items,
+                                      List<DummyContent.Expense> items,
                                       boolean twoPane) {
             mValues = items;
             mParentActivity = parent;

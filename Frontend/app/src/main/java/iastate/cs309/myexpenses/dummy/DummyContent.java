@@ -18,12 +18,12 @@ public class DummyContent {
     /**
      * An array of sample (dummy) items.
      */
-    public static final List<DummyItem> ITEMS = new ArrayList<DummyItem>();
+    public static final List<Expense> ITEMS = new ArrayList<Expense>();
 
     /**
      * A map of sample (dummy) items, by ID.
      */
-    public static final Map<String, DummyItem> ITEM_MAP = new HashMap<String, DummyItem>();
+    public static final Map<String, Expense> ITEM_MAP = new HashMap<String, Expense>();
 
     private static final int COUNT = 25;
 
@@ -34,14 +34,14 @@ public class DummyContent {
         }
     }
 
-    private static void addItem(DummyItem item) {
+    private static void addItem(Expense item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.id, item);
     }
 
-    private static DummyItem createDummyItem(int position) {
+    private static Expense createDummyItem(int position) {
         int randomAmount = ThreadLocalRandom.current().nextInt(5, 50);
-        return new DummyItem(String.valueOf(position), "Item " + position, makeDetails(position), new BigDecimal(randomAmount), "todo");
+        return new Expense(String.valueOf(position), "Item " + position, makeDetails(position), new BigDecimal(randomAmount), "todo");
     }
 
     private static String makeDetails(int position) {
@@ -56,14 +56,14 @@ public class DummyContent {
     /**
      * A dummy item representing a piece of content.
      */
-    public static class DummyItem {
+    public static class Expense {
         public final String id;
         public final String content;
         public final String details;
         public final BigDecimal amount;
         public final String category;
 
-        public DummyItem(String id, String content, String details, BigDecimal amount, String category) {
+        public Expense(String id, String content, String details, BigDecimal amount, String category) {
             this.id = id;
             this.content = content;
             this.details = details;
