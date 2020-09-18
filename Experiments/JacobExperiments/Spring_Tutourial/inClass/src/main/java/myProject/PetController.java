@@ -1,4 +1,4 @@
-package com.example.demo;
+package myProject;
 
 import java.util.List;
 

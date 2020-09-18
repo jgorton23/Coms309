@@ -1,4 +1,4 @@
-package com.example.demo;
+package myProject;
 
 import java.util.List;
 
@@ -10,14 +10,11 @@ public class MyController {
 
 	@Autowired
 	MyDatabase db;
-	
-	/*
+
 	@GetMapping("/person/{id}")
 	Person getPerson(@PathVariable Integer id) {
 		return db.findOne(id);
 	}
-	*/
-	
 	@RequestMapping("/persons")
 	List<Person> hello() {
 		return db.findAll();
@@ -28,8 +25,8 @@ public class MyController {
 		db.save(p);
 		return p;
 	}
-	
-	/*
+
+
 	@PutMapping("/person/{id}")
 	Person updatePerson(@RequestBody Person p, @PathVariable Integer id) {
 		Person old_p = db.findOne(id);
@@ -43,6 +40,5 @@ public class MyController {
 		db.delete(id);
 		return "deleted " + id;
 	}
-	*/
 
 }

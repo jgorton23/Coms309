@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface MyDatabase extends JpaRepository<Person, Integer> {
+public interface ItemDatabase extends JpaRepository<ItemAdd, Integer> {
 
 }
