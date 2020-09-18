@@ -29,7 +29,7 @@ public class MyController {
 		return p;
 	}
 
-	/*
+	
 	@PutMapping("/person/{id}")
 	Person updatePerson(@RequestBody Person p, @PathVariable Integer id) {
 		Person old_p = db.findOne(id);
@@ -43,6 +43,6 @@ public class MyController {
 		db.delete(id);
 		return "deleted " + id;
 	}
-	*/
+	
 
 }
