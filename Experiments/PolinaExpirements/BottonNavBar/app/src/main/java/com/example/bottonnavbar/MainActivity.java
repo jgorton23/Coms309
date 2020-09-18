@@ -15,12 +15,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.add_screen);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.botton_navigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
-
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+//        BottomNavigationView bottomNavigationView = findViewById(R.id.botton_navigation);
+//        bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
+//
+//        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
 
     }
 
