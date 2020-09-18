@@ -1,7 +1,6 @@
 package com.example.bottonnavbar;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +21,7 @@ public class AddScreen extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.add_screen, container, false);
 
-        spinner = rootView.findViewById(R.id.spinnerCategory);
+        spinner = rootView.findViewById(R.id.spinnerCategory2);
 
         List<String> category = new ArrayList<>();
         category.add("--");
