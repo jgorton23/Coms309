@@ -27,7 +27,7 @@ public class ItemAdd {
 		String notes;
 		
 		public Integer getId() { return id; }
-		public String getUser() { return name; }
+		public String getName() { return name; }
 		public Double getPrice() { return price; }
 		public String getCatagory() { return catagory; }
 		public Date getDate() { return date; }
