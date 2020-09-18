@@ -6,14 +6,9 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,18 +16,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-//        Spinner spinner = findViewById(R.id.spinnerCategory);
-//
-//        List<String> category = new ArrayList<>();
-//        category.add_screen("--");
-//        category.add_screen("Rent");
-//        category.add_screen("Other");
-//
-//        ArrayAdapter<String> colorAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, category);
-//        colorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        spinner.setAdapter(colorAdapter);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.botton_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
