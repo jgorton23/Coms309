@@ -27,8 +27,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import iastate.cs309.myexpenses.dummy.DummyContent;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -92,13 +90,13 @@ public class ItemListActivity extends AppCompatActivity {
 
                     @Override
                     public void onResponse(JSONArray response) {
-                        ArrayList<DummyContent.Expense> listdata = new ArrayList<DummyContent.Expense>();
+                        ArrayList<Expense> listdata = new ArrayList<Expense>();
                         if (response != null) {
 
                             for (int i=0;i<response.length();i++){
                                 try {
                                     JSONObject jsonObject = response.getJSONObject(i);
-                                    DummyContent.Expense item = new DummyContent.Expense(
+                                    Expense item = new Expense(
                                             jsonObject.getString("id"),
                                             jsonObject.getString("notes"),
                                             jsonObject.getString("notes"),
@@ -129,12 +127,12 @@ public class ItemListActivity extends AppCompatActivity {
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
         private final ItemListActivity mParentActivity;
-        private final List<DummyContent.Expense> mValues;
+        private final List<Expense> mValues;
         private final boolean mTwoPane;
         private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DummyContent.Expense item = (DummyContent.Expense) view.getTag();
+                Expense item = (Expense) view.getTag();
                 if (mTwoPane) {
                     Bundle arguments = new Bundle();
                     arguments.putString(ItemDetailFragment.ARG_ITEM_ID, item.id);
@@ -154,7 +152,7 @@ public class ItemListActivity extends AppCompatActivity {
         };
 
         SimpleItemRecyclerViewAdapter(ItemListActivity parent,
-                                      List<DummyContent.Expense> items,
+                                      List<Expense> items,
                                       boolean twoPane) {
             mValues = items;
             mParentActivity = parent;

@@ -20,7 +20,8 @@ import android.widget.TextView;
 
 import org.json.JSONArray;
 
-import iastate.cs309.myexpenses.dummy.DummyContent;
+import java.math.BigDecimal;
+
 
 /**
  * A fragment representing a single Item detail screen.
@@ -38,7 +39,7 @@ public class ItemDetailFragment extends Fragment {
     /**
      * The dummy content this fragment is presenting.
      */
-    private DummyContent.Expense mItem;
+    private Expense mItem;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -55,7 +56,7 @@ public class ItemDetailFragment extends Fragment {
             // Load the dummy content specified by the fragment
             // arguments. In a real-world scenario, use a Loader
             // to load content from a content provider.
-            mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
+            mItem = new Expense("1", "todo", "todo", BigDecimal.ONE, "todo");
 
             Activity activity = this.getActivity();
             CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
