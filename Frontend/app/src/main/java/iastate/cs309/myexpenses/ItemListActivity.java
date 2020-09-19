@@ -33,14 +33,6 @@ import java.util.List;
 
 import iastate.cs309.myexpenses.add.AddActivity;
 
-/**
- * An activity representing a list of Items. This activity
- * has different presentations for handset and tablet-size devices. On
- * handsets, the activity presents a list of items, which when touched,
- * lead to a {@link ItemDetailActivity} representing
- * item details. On tablets, the activity presents the list of items and
- * item details side-by-side using two vertical panes.
- */
 public class ItemListActivity extends AppCompatActivity {
 
     /**
@@ -63,7 +55,7 @@ public class ItemListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ItemListActivity.this, AddActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 0);
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
@@ -80,6 +72,13 @@ public class ItemListActivity extends AppCompatActivity {
         View recyclerView = findViewById(R.id.item_list);
         assert recyclerView != null;
         setupRecyclerView((RecyclerView) recyclerView);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        RecyclerView recyclerView = findViewById(R.id.item_list);
+        loadData(recyclerView);
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
