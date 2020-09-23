@@ -45,7 +45,7 @@ public class DummyContent {
         int randomAmount = ThreadLocalRandom.current().nextInt(5, 50);
         int categoryIndex = ThreadLocalRandom.current().nextInt(0, Category.values().length);
         Category category = Category.values()[categoryIndex];
-        return new DummyItem(String.valueOf(position), "Expense " + position, makeDetails(position), new BigDecimal(randomAmount), category);
+        return new DummyItem(String.valueOf(position), "Item " + position, makeDetails(position), new BigDecimal(randomAmount), category);
     }
 
     private static String makeDetails(int position) {

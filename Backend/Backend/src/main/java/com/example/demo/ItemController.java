@@ -1,15 +1,17 @@
 package com.example.demo;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class MyController {
+public class ItemController {
 
 	@Autowired
-	MyDatabase db;
+	ItemDatabase db;
 	
 	/*
 	@GetMapping("/person/{id}")
@@ -18,15 +20,15 @@ public class MyController {
 	}
 	*/
 	
-	@RequestMapping("/persons")
-	List<Person> hello() {
+	@RequestMapping("/items")
+	List<ItemAdd> hello() {
 		return db.findAll();
 	}
 
-	@PostMapping("/person")
-	Person createPerson(@RequestBody Person p) {
-		db.save(p);
-		return p;
+	@PostMapping("/item")
+	ItemAdd createPerson(@RequestBody ItemAdd i) {
+		db.save(i);
+		return i;
 	}
 	
 	/*
