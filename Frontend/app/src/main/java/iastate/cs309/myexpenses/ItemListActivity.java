@@ -1,6 +1,8 @@
 package iastate.cs309.myexpenses;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -118,6 +120,23 @@ public class ItemListActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // TODO: Handle error
+                        System.out.println(error);
+                        new AlertDialog.Builder(getApplicationContext())
+                                .setTitle("Error")
+                                .setMessage(error.toString())
+
+                                // Specifying a listener allows you to take an action before dismissing the dialog.
+                                // The dialog is automatically dismissed when a dialog button is clicked.
+                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // Continue with delete operation
+                                    }
+                                })
+
+                                // A null listener allows the button to dismiss the dialog and take no further action.
+                                //.setNegativeButton(android.R.string.no, null)
+                                //.setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
                     }
                 });
 
