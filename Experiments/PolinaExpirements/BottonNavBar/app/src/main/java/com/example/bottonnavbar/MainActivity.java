@@ -14,6 +14,9 @@ import android.widget.Spinner;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,25 +31,6 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
 
-//    }
-
-    private Spinner spinner;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_screen);
-
-        spinner = findViewById(R.id.spinnerCategory);
-
-        List<String> category = new ArrayList<>();
-        category.add("--");
-        category.add("Rent");
-        category.add("Other");
-
-        ArrayAdapter<String> colorAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, category);
-        colorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(colorAdapter);
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
