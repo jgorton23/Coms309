@@ -4,31 +4,37 @@ import java.sql.Date;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "Items")
 public class ItemAdd {
 
 	@Id
 	  @GeneratedValue(strategy = GenerationType.IDENTITY)
-		Integer id;
+		private Integer id;
 	
 		@Column
-		String name;
+		private String name;
 		
 		@Column
-		Double price;
+		private Double price;
 		
 		@Column
-		String catagory;
+		private String category;
 		
 		@Column
-		Date date;
+		private Date date;
 		
 		@Column
-		String notes;
+		private String notes;
+		
+		@ManyToOne
+	    @JoinColumn(name="Person_id", nullable=false)
+	    private Person person;
 		
 		public Integer getId() { return id; }
 		public String getName() { return name; }
 		public Double getPrice() { return price; }
-		public String getCatagory() { return catagory; }
+		public String getCatagory() { return category; }
 		public Date getDate() { return date; }
 		public String getNotes() { return notes; }
+		public Person getPerson() {	return person; }
 }
