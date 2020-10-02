@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,7 +33,7 @@ class Person {
 	@Column
 	private String password;
 	
-	@OneToMany(mappedBy="id")
+	@OneToMany(mappedBy="person", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ItemAdd> itemsBought;
 	
 	
@@ -43,6 +44,12 @@ class Person {
 	public String getUsername() { return username; }
 	public String getPassword() { return password; }
 	public void setAddress(String password) { this.password = password; }
+	public List<ItemAdd> getItemsBought() {
+		return itemsBought;
+	}
+	public void setItemsBought(List<ItemAdd> items) {
+		itemsBought = items;
+	}
 	
 	
 }

@@ -6,11 +6,11 @@ import java.util.Set;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Items")
+@Table(name = "items")
 public class ItemAdd {
 
 		@Id
-		@GeneratedValue(strategy = GenerationType.IDENTITY)
+		@GeneratedValue(strategy = GenerationType.AUTO)
 		private Integer id;
 	
 		@Column
@@ -29,14 +29,17 @@ public class ItemAdd {
 		private String notes;
 		
 		@ManyToOne
-		@JoinColumn(name = "personId", nullable=false)
-	    private  Person person;
+		@JoinColumn(name = "person_id")
+	    private Person person;
 		
 		public Integer getId() { return id; }
 		public String getName() { return name; }
 		public Double getPrice() { return price; }
-		public String getCatagory() { return category; }
+		public String getCategory() { return category; }
 		public Date getDate() { return date; }
 		public String getNotes() { return notes; }
-		//public Person getPerson() {	return person; }
+		public Person getPerson() {	return person; }
+		public void setPerson(Person p) {
+			person = p;
+		}
 }
