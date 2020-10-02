@@ -1,14 +1,16 @@
 package com.example.demo;
 
 import java.sql.Date;
+import java.util.Set;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "Items")
 public class ItemAdd {
 
-	@Id
-	  @GeneratedValue(strategy = GenerationType.IDENTITY)
+		@Id
+		@GeneratedValue(strategy = GenerationType.IDENTITY)
 		private Integer id;
 	
 		@Column
@@ -27,8 +29,8 @@ public class ItemAdd {
 		private String notes;
 		
 		@ManyToOne
-	    @JoinColumn(name="Person_id", nullable=false)
-	    private Person person;
+		@JoinColumn(name = "personId", nullable=false)
+	    private  Person person;
 		
 		public Integer getId() { return id; }
 		public String getName() { return name; }
@@ -36,5 +38,5 @@ public class ItemAdd {
 		public String getCatagory() { return category; }
 		public Date getDate() { return date; }
 		public String getNotes() { return notes; }
-		public Person getPerson() {	return person; }
+		//public Person getPerson() {	return person; }
 }
