@@ -1,6 +1,8 @@
 package com.example.demo;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,13 +13,6 @@ public class MyController {
 	@Autowired
 	MyDatabase db;
 	
-	/*
-	@GetMapping("/person/{id}")
-	Person getPerson(@PathVariable Integer id) {
-		return db.findOne(id);
-	}
-	*/
-	
 	@RequestMapping("/persons")
 	List<Person> hello() {
 		return db.findAll();
@@ -27,6 +22,29 @@ public class MyController {
 	Person createPerson(@RequestBody Person p) {
 		db.save(p);
 		return p;
+	}
+	
+	@RequestMapping("/persons/{id}")
+	Optional<Person> findperson(@PathVariable int id) {
+		return db.findById(id);
+	}
+	
+	@RequestMapping("/getItems/{id}")
+	List<ItemAdd> getItems(@PathVariable int id) {
+		Optional<Person> optionalP = db.findById(id);
+		if (optionalP.isPresent()) {
+			Person p = optionalP.get();
+			return p.getItemsBought();
+		}
+		else {
+			return Collections.emptyList();
+		}
+	}
+	
+	/*
+	@RequestMapping(value = "/person/{id}", method = RequestMethod.GET)
+	List<ItemAdd> getId(@PathVariable int id) {
+	    return ((Person) db.findById(id)).getItemsBought();
 	}
 	
 	/*
