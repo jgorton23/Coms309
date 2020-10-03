@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.util.Set;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "items")
 public class ItemAdd {
@@ -30,6 +32,7 @@ public class ItemAdd {
 		
 		@ManyToOne
 		@JoinColumn(name = "person_id")
+		@JsonIgnore
 	    private Person person;
 		
 		public int getId() { return id; }

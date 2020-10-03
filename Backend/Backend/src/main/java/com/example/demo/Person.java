@@ -3,9 +3,11 @@ package com.example.demo;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "Person")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "itemsBought"})
 class Person {
 	
 	@Id
