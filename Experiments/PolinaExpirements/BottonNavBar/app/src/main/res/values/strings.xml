@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">BottonNavBar</string>
+    <string name="plus">+</string>
+    <string name="name">Name</string>
+    <string name="amount">Amount</string>
+    <string name="add">+</string>
+    <string name="category">Category</string>
+    <string name="date">Date</string>
+    <string name="notes">Notes</string>
+    <string name="Add">Add</string>
+</resources>

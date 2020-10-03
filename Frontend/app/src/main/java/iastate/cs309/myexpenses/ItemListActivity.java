@@ -1,6 +1,8 @@
 package iastate.cs309.myexpenses;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -9,6 +11,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -17,18 +25,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import iastate.cs309.myexpenses.dummy.DummyContent;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
-/**
- * An activity representing a list of Items. This activity
- * has different presentations for handset and tablet-size devices. On
- * handsets, the activity presents a list of items, which when touched,
- * lead to a {@link ItemDetailActivity} representing
- * item details. On tablets, the activity presents the list of items and
- * item details side-by-side using two vertical panes.
- */
+import iastate.cs309.myexpenses.add.AddActivity;
+
 public class ItemListActivity extends AppCompatActivity {
 
     /**
@@ -50,6 +56,8 @@ public class ItemListActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(ItemListActivity.this, AddActivity.class);
+                startActivityForResult(intent, 0);
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
@@ -68,20 +76,85 @@ public class ItemListActivity extends AppCompatActivity {
         setupRecyclerView((RecyclerView) recyclerView);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        RecyclerView recyclerView = findViewById(R.id.item_list);
+        loadData(recyclerView);
+    }
+
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, DummyContent.ITEMS, mTwoPane));
+        loadData(recyclerView);
+    }
+
+    private void loadData(final RecyclerView recyclerView) {
+        String url = "http://coms-309-ug-02.cs.iastate.edu:8080/items";
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        ArrayList<Expense> listdata = new ArrayList<Expense>();
+                        if (response != null) {
+
+                            for (int i=0;i<response.length();i++){
+                                try {
+                                    JSONObject jsonObject = response.getJSONObject(i);
+                                    Expense item = new Expense(
+                                            jsonObject.getString("id"),
+                                            jsonObject.getString("notes"),
+                                            jsonObject.getString("notes"),
+                                            new BigDecimal(jsonObject.getDouble("price")),
+                                            jsonObject.getString("catagory"));
+                                    listdata.add(item);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(ItemListActivity.this, listdata, mTwoPane));
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO: Handle error
+                        System.out.println(error);
+                        new AlertDialog.Builder(getApplicationContext())
+                                .setTitle("Error")
+                                .setMessage(error.toString())
+
+                                // Specifying a listener allows you to take an action before dismissing the dialog.
+                                // The dialog is automatically dismissed when a dialog button is clicked.
+                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // Continue with delete operation
+                                    }
+                                })
+
+                                // A null listener allows the button to dismiss the dialog and take no further action.
+                                //.setNegativeButton(android.R.string.no, null)
+                                //.setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
+                    }
+                });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        requestQueue.add(jsonArrayRequest);
     }
 
     public static class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
         private final ItemListActivity mParentActivity;
-        private final List<DummyContent.DummyItem> mValues;
+        private final List<Expense> mValues;
         private final boolean mTwoPane;
         private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DummyContent.DummyItem item = (DummyContent.DummyItem) view.getTag();
+                Expense item = (Expense) view.getTag();
                 if (mTwoPane) {
                     Bundle arguments = new Bundle();
                     arguments.putString(ItemDetailFragment.ARG_ITEM_ID, item.id);
@@ -101,7 +174,7 @@ public class ItemListActivity extends AppCompatActivity {
         };
 
         SimpleItemRecyclerViewAdapter(ItemListActivity parent,
-                                      List<DummyContent.DummyItem> items,
+                                      List<Expense> items,
                                       boolean twoPane) {
             mValues = items;
             mParentActivity = parent;

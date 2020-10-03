@@ -1,35 +1,46 @@
 package com.example.demo;
 
 import java.sql.Date;
-
+import java.util.Set;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
+@Table(name = "items")
 public class ItemAdd {
 
-	@Id
-	  @GeneratedValue(strategy = GenerationType.IDENTITY)
-		Integer id;
+		@Id
+		@GeneratedValue(strategy = GenerationType.AUTO)
+		@Column
+		private int id;
 	
 		@Column
-		String name;
+		private String name;
 		
 		@Column
-		Double price;
+		private Double price;
 		
 		@Column
-		String catagory;
+		private String category;
 		
 		@Column
-		Date date;
+		private Date date;
 		
 		@Column
-		String notes;
+		private String notes;
 		
-		public Integer getId() { return id; }
+		@ManyToOne
+		@JoinColumn(name = "person_id")
+		@JsonIgnore
+	    private Person person;
+		
+		public int getId() { return id; }
 		public String getName() { return name; }
 		public Double getPrice() { return price; }
-		public String getCatagory() { return catagory; }
+		public String getCategory() { return category; }
 		public Date getDate() { return date; }
 		public String getNotes() { return notes; }
+		public Person getPerson() {	return person; }
+		public void setPerson(Person p) { person = p;}
 }
