@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -20,9 +21,9 @@ import javax.persistence.Table;
 class Person {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column
-	private long id;
+	private int id;
 	
 	@Column
 	private int userLevel;
@@ -36,23 +37,15 @@ class Person {
 	@OneToMany(mappedBy="person", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ItemAdd> itemsBought;
 	
+	//private ArrayList<String> friendId = new ArrayList<String>();
 	
-	
-	
-	public long getId() { return id; }
+	public int getId() { return id; }
 	public int getUserLevel() { return userLevel; }
 	public String getUsername() { return username; }
 	public String getPassword() { return password; }
 	public void setAddress(String password) { this.password = password; }
-	public List<ItemAdd> getItemsBought() {
-		return itemsBought;
-	}
-	public void setItemsBought(List<ItemAdd> items) {
-		itemsBought = items;
-	}
-	
-	public String toString() {
-		return username;
-	}
+	public List<ItemAdd> getItemsBought() { return itemsBought; }
+	public void setItemsBought(List<ItemAdd> items) { itemsBought = items; }
+	public String toString() { return username; }
 	
 }

@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,8 +32,20 @@ public class MyController {
 	}
 	
 	@RequestMapping("/persons/{id}")
-	Person findperson(@PathVariable long id) {
+	Optional<Person> findperson(@PathVariable int id) {
 		return db.findById(id);
+	}
+	
+	@RequestMapping("/getItems/{id}")
+	List<ItemAdd> getItems(@PathVariable int id) {
+		Optional<Person> optionalP = db.findById(id);
+		if (optionalP.isPresent()) {
+			Person p = optionalP.get();
+			return p.getItemsBought();
+		}
+		else {
+			return Collections.emptyList();
+		}
 	}
 	
 	/*

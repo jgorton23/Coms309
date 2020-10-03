@@ -2,7 +2,6 @@ package com.example.demo;
 
 import java.sql.Date;
 import java.util.Set;
-
 import javax.persistence.*;
 
 @Entity
@@ -11,7 +10,8 @@ public class ItemAdd {
 
 		@Id
 		@GeneratedValue(strategy = GenerationType.AUTO)
-		private Integer id;
+		@Column
+		private int id;
 	
 		@Column
 		private String name;
@@ -32,7 +32,7 @@ public class ItemAdd {
 		@JoinColumn(name = "person_id")
 	    private Person person;
 		
-		public Integer getId() { return id; }
+		public int getId() { return id; }
 		public String getName() { return name; }
 		public Double getPrice() { return price; }
 		public String getCategory() { return category; }

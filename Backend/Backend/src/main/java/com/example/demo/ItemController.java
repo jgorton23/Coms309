@@ -1,6 +1,8 @@
 package com.example.demo;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,9 +25,17 @@ public class ItemController {
 	}
 	
 	@PostMapping("/addItem")
-	ItemAdd createPerson(@RequestBody ItemAdd i) {
-		ItemDB.save(i);
-		return i;
+	String createPerson(@RequestBody ItemAdd item) {
+		Optional<Person> optionalP = personDB.findById(item.getPerson().getId());
+		if (optionalP.isPresent()) {
+			Person p = optionalP.get();
+			item.setPerson(p);
+			ItemDB.save(item);
+			return "Success";
+		}
+		else {
+			return "Failure";
+		}
 	}
 	
 	/*
