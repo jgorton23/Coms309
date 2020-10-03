@@ -13,13 +13,6 @@ public class MyController {
 	@Autowired
 	MyDatabase db;
 	
-	/*
-	@GetMapping("/person/{id}")
-	Person getPerson(@PathVariable Integer id) {
-		return db.findOne(id);
-	}
-	*/
-	
 	@RequestMapping("/persons")
 	List<Person> hello() {
 		return db.findAll();

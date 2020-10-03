@@ -39,7 +39,5 @@ public class ItemAdd {
 		public Date getDate() { return date; }
 		public String getNotes() { return notes; }
 		public Person getPerson() {	return person; }
-		public void setPerson(Person p) {
-			person = p;
-		}
+		public void setPerson(Person p) { person = p;}
 }
