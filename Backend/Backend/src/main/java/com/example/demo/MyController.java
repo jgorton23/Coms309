@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +28,17 @@ public class MyController {
 	Person createPerson(@RequestBody Person p) {
 		db.save(p);
 		return p;
+	}
+	
+	@RequestMapping("/persons/{id}")
+	Person findperson(@PathVariable long id) {
+		return db.findById(id);
+	}
+	
+	/*
+	@RequestMapping(value = "/person/{id}", method = RequestMethod.GET)
+	List<ItemAdd> getId(@PathVariable int id) {
+	    return ((Person) db.findById(id)).getItemsBought();
 	}
 	
 	/*

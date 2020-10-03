@@ -51,5 +51,8 @@ class Person {
 		itemsBought = items;
 	}
 	
+	public String toString() {
+		return username;
+	}
 	
 }

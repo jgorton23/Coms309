@@ -8,5 +8,6 @@ import com.example.demo.*;
 
 @Repository
 public interface MyDatabase extends JpaRepository<Person, Integer> {
-
+	@Query(value = "select p from person where p.id = ?1", nativeQuery = true)
+	Person findById(long id);
 }
