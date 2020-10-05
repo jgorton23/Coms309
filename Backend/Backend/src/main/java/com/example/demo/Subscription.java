@@ -1,11 +1,13 @@
 package com.example.demo;
 
 import java.sql.Date;
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
-@Table(name = "items")
-public class ItemAdd {
+@Table(name = "subscriptions")
+public class Subscription {
 
 		@Id
 		@GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,24 +21,23 @@ public class ItemAdd {
 		private Double price;
 		
 		@Column
-		private String category;
-		
-		@Column
 		private Date date;
 		
 		@Column
 		private String notes;
 		
-		@ManyToOne
-		@JoinColumn(name = "person_id")
-		private Person person;
+		@Column
+		private int posterId;
+		
+		@ManyToMany(mappedBy = "subscriptionsBought")
+		List<Person> users;
 		
 		public int getId() { return id; }
 		public String getName() { return name; }
 		public Double getPrice() { return price; }
-		public String getCategory() { return category; }
 		public Date getDate() { return date; }
 		public String getNotes() { return notes; }
-		public Person getPerson() {	return person; }
-		public void setPerson(Person p) { person = p;}
+		public int getPerson() { return posterId; }
+		public void setPosterId(int i) { posterId = i;}
+		public List<Person> getUsersBought() { return users;}
 }

@@ -10,26 +10,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class ItemController {
+public class SubscriptionController {
 
 	@Autowired
 	MyDatabase personDB;
 	@Autowired
-	ItemDatabase ItemDB;
+	SubscriptionDatabase subDB;
 	
 	
-	@RequestMapping("/getItem")
-	public List<ItemAdd> findAllItems() {
-		return ItemDB.findAll();
+	@RequestMapping("/getSubscriptions")
+	public List<Subscription> findAllItems() {
+		return subDB.findAll();
 	}
 	
-	@PostMapping("/addItem")
-	String createItem(@RequestBody ItemAdd item) {
-		Optional<Person> optionalP = personDB.findById(item.getPerson().getId());
+	/*
+	@PostMapping("/addSubscription")
+	String createSubscription(@RequestBody Subscription subscription) {
+		Optional<Person> optionalP = personDB.findById(subscription.getPerson().getId());
 		if (optionalP.isPresent()) {
 			Person p = optionalP.get();
-			item.setPerson(p);
-			ItemDB.save(item);
+			subscription.setPerson(p);
+			subDB.save(subscription);
 			return "Success";
 		}
 		else {
@@ -44,12 +45,12 @@ public class ItemController {
 	}
 	
 	@RequestMapping("/items")
-	List<ItemAdd> hello() {
+	List<Subscription> hello() {
 		return db.findAll();
 	}
 
 	@PostMapping("/item")
-	ItemAdd createPerson(@RequestBody ItemAdd i) {
+	Subscription createPerson(@RequestBody Subscription i) {
 		db.save(i);
 		return i;
 	}

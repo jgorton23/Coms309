@@ -2,6 +2,8 @@ package com.example.demo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
 import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -27,6 +29,13 @@ class Person {
 	@OneToMany(mappedBy="person", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ItemAdd> itemsBought;
 	
+	@ManyToMany
+	@JoinTable(
+	name = "subscriptionsUsers", 
+	joinColumns = @JoinColumn(name = "user_id"), 
+	inverseJoinColumns = @JoinColumn(name = "subscription_id"))
+	private List<Subscription> subscriptionsBought;
+	
 	//private ArrayList<String> friendId = new ArrayList<String>();
 	
 	public int getId() { return id; }
@@ -37,5 +46,6 @@ class Person {
 	public List<ItemAdd> getItemsBought() { return itemsBought; }
 	public void setItemsBought(List<ItemAdd> items) { itemsBought = items; }
 	public String toString() { return username; }
+	public List<Subscription> getSubscriptionsBought() { return subscriptionsBought;}
 	
 }

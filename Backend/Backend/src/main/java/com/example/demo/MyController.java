@@ -3,7 +3,6 @@ package com.example.demo;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,6 +34,18 @@ public class MyController {
 		if (optionalP.isPresent()) {
 			Person p = optionalP.get();
 			return p.getItemsBought();
+		}
+		else {
+			return Collections.emptyList();
+		}
+	}
+	
+	@RequestMapping("/getSubscriptions/{id}")
+	List<Subscription> getSubscriptions(@PathVariable int id) {
+		Optional<Person> optionalP = db.findById(id);
+		if (optionalP.isPresent()) {
+			Person p = optionalP.get();
+			return p.getSubscriptionsBought();
 		}
 		else {
 			return Collections.emptyList();
