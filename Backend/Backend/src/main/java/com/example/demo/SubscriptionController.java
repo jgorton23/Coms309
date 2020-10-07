@@ -37,17 +37,5 @@ public class SubscriptionController {
 			return "Failure";
 		}
 	}
-	
-	/*
-	@GetMapping("/person/{id}")
-	Person getPerson(@PathVariable Integer id) {
-		return db.findOne(id);
-	}
-	
-	@RequestMapping("/items")
-	List<Subscription> hello() {
-		return db.findAll();
-	}
 	*/
-
 }
