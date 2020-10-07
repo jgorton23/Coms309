@@ -52,6 +52,21 @@ public class MyController {
 		}
 	}
 	
+	@RequestMapping("/getFriends/{id}")
+	List<Person> getFriends(@PathVariable int id) { 
+		Optional<Person> optionalP = db.findById(id);
+		if (optionalP.isPresent()) {
+			Person p = optionalP.get();
+			return p.getFriends();
+		}
+		else {
+			return Collections.emptyList();
+		}
+	}
+	
+	//@RequestMapping("/getSummary/{id}")
+	
+	
 	/*
 	@RequestMapping(value = "/person/{id}", method = RequestMethod.GET)
 	List<ItemAdd> getId(@PathVariable int id) {

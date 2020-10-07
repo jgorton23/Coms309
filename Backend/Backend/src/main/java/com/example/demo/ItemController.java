@@ -24,16 +24,16 @@ public class ItemController {
 	}
 	
 	@PostMapping("/addItem")
-	String createItem(@RequestBody ItemAdd item) {
+	ItemAdd createItem(@RequestBody ItemAdd item) {
 		Optional<Person> optionalP = personDB.findById(item.getPerson().getId());
 		if (optionalP.isPresent()) {
 			Person p = optionalP.get();
 			item.setPerson(p);
 			ItemDB.save(item);
-			return "Success";
+			return item;
 		}
 		else {
-			return "Failure";
+			return null;
 		}
 	}
 	

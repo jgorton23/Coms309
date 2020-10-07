@@ -48,26 +48,6 @@ public class SubscriptionController {
 	List<Subscription> hello() {
 		return db.findAll();
 	}
-
-	@PostMapping("/item")
-	Subscription createPerson(@RequestBody Subscription i) {
-		db.save(i);
-		return i;
-	}
-	
-	@PutMapping("/person/{id}")
-	Person updatePerson(@RequestBody Person p, @PathVariable Integer id) {
-		Person old_p = db.findOne(id);
-		old_p.setAddress(p.address);
-		db.save(old_p);
-		return old_p;
-	}
-	
-	@DeleteMapping("/person/{id}")
-	String deletePerson(@PathVariable Integer id) {
-		db.delete(id);
-		return "deleted " + id;
-	}
 	*/
 
 }
