@@ -4,6 +4,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,26 +43,65 @@ public class MyController {
 		}
 	}
 	
-	/*
-	@RequestMapping(value = "/person/{id}", method = RequestMethod.GET)
-	List<ItemAdd> getId(@PathVariable int id) {
-	    return ((Person) db.findById(id)).getItemsBought();
+	@RequestMapping("/getSubscriptions/{id}")
+	List<Subscription> getSubscriptions(@PathVariable int id) {
+		Optional<Person> optionalP = db.findById(id);
+		if (optionalP.isPresent()) {
+			Person p = optionalP.get();
+			return p.getSubscriptionsBought();
+		}
+		else {
+			return Collections.emptyList();
+		}
 	}
 	
-	/*
-	@PutMapping("/person/{id}")
-	Person updatePerson(@RequestBody Person p, @PathVariable Integer id) {
-		Person old_p = db.findOne(id);
-		old_p.setAddress(p.address);
-		db.save(old_p);
-		return old_p;
+	@RequestMapping("/getFriends/{id}")
+	List<Person> getFriends(@PathVariable int id) { 
+		Optional<Person> optionalP = db.findById(id);
+		if (optionalP.isPresent()) {
+			Person p = optionalP.get();
+			return p.getFriends();
+		}
+		else {
+			return Collections.emptyList();
+		}
 	}
-
+	
+	@RequestMapping("/getSummary/{id}")
+	JSONObject getSummary(@PathVariable int id) {
+		Optional<Person> optionalP = db.findById(id);
+		if (optionalP.isPresent()) {
+			Person p = optionalP.get();
+			List<ItemAdd> items = p.getItemsBought();
+			JSONObject obj = new JSONObject();
+			int groceries = 0, utilities = 0, rent = 0;
+			for (int i = 0; i < items.size(); i++) {
+				if (items.get(i).getCategory() == "groceries") {
+					groceries += items.get(i).getPrice();
+				}
+				else if (items.get(i).getCategory() == "utilities") {
+					utilities += items.get(i).getPrice();
+				}
+				else if (items.get(i).getCategory() == "rent") {
+					rent += items.get(i).getPrice();
+				}
+			}
+			try {
+				obj.put("groceries", groceries);
+				obj.put("utilities", utilities);
+				obj.put("rent", rent);
+			} catch (JSONException e) { return new JSONObject(); }
+			return obj;
+		}
+		else {
+			return new JSONObject();
+		}
+	}
+	
 	@DeleteMapping("/person/{id}")
 	String deletePerson(@PathVariable Integer id) {
-		db.delete(id);
+		db.deleteById(id);
 		return "deleted " + id;
 	}
-	*/
 
 }
