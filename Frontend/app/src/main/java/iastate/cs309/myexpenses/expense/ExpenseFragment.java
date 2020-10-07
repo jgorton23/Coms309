@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,6 +32,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import iastate.cs309.myexpenses.BarGraphFragment;
 import iastate.cs309.myexpenses.Expense;
 import iastate.cs309.myexpenses.ItemListActivity;
 import iastate.cs309.myexpenses.R;
@@ -76,6 +78,11 @@ public class ExpenseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_expense_list, container, false);
+
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.parent_fragment_container, new BarGraphFragment());
+        ft.commit();
+
         View view = rootView.findViewById(R.id.list);
 
         // Set the adapter
