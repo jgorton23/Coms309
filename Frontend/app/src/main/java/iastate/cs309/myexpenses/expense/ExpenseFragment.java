@@ -75,7 +75,8 @@ public class ExpenseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_expense_list, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_expense_list, container, false);
+        View view = rootView.findViewById(R.id.list);
 
         // Set the adapter
         if (view instanceof RecyclerView) {
@@ -89,7 +90,7 @@ public class ExpenseFragment extends Fragment {
             }
 //            recyclerView.setAdapter(new MyExpenseRecyclerViewAdapter(DummyContent.ITEMS));
         }
-        return view;
+        return rootView;
     }
 
     private void loadData(final RecyclerView recyclerView) {
