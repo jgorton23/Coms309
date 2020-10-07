@@ -25,6 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 
 import iastate.cs309.myexpenses.R;
 
@@ -57,11 +58,15 @@ public class AddActivity extends AppCompatActivity {
         JSONObject jsonBody = new JSONObject();
         EditText price = findViewById(R.id.amountPlainText);
         jsonBody.put("price", new BigDecimal(price.getText().toString()));
-        jsonBody.put("catagory", "Grocery");
+        jsonBody.put("category", "Grocery");
         EditText date = findViewById(R.id.datePlainText);
         jsonBody.put("date", date.getText());
         EditText name = findViewById(R.id.namePlainText);
         jsonBody.put("notes", name.getText());
+        JSONObject jsonPerson = new JSONObject();
+        jsonPerson.put("id", 2);
+        jsonBody.put("person", jsonPerson);
+        System.out.println(jsonBody);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.POST, url, jsonBody, new Response.Listener<JSONObject>() {
