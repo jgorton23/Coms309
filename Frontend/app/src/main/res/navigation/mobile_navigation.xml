@@ -14,18 +14,12 @@
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="iastate.cs309.myexpenses.navbar.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
+        android:label="@string/title_friends"
         tools:layout="@layout/fragment_dashboard" />
-
-    <fragment
-    android:id="@+id/navigation_notifications"
-    android:name="iastate.cs309.myexpenses.navbar.ui.notifications.NotificationsFragment"
-    android:label="@string/title_notifications"
-    tools:layout="@layout/fragment_notifications" />
 
     <fragment
         android:id="@+id/navigation_expenses"
         android:name="iastate.cs309.myexpenses.expense.ExpenseFragment"
-        android:label="@string/title_notifications"
+        android:label="@string/title_summary"
         tools:layout="@layout/fragment_notifications" />
 </navigation>

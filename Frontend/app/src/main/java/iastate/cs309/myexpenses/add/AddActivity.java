@@ -53,7 +53,7 @@ public class AddActivity extends AppCompatActivity {
     private void saveData() throws JSONException {
 
 //        final TextView textView = rootView.findViewById(R.id.item_detail);
-        String url = "http://coms-309-ug-02.cs.iastate.edu:8080/item";
+        String url = "http://coms-309-ug-02.cs.iastate.edu:8080/addItem";
         JSONObject jsonBody = new JSONObject();
         EditText price = findViewById(R.id.amountPlainText);
         jsonBody.put("price", new BigDecimal(price.getText().toString()));

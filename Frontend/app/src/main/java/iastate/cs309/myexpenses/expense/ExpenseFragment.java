@@ -93,7 +93,7 @@ public class ExpenseFragment extends Fragment {
     }
 
     private void loadData(final RecyclerView recyclerView) {
-        String url = "http://coms-309-ug-02.cs.iastate.edu:8080/items";
+        String url = "http://coms-309-ug-02.cs.iastate.edu:8080/getItem";
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
@@ -120,7 +120,7 @@ public class ExpenseFragment extends Fragment {
                                             jsonObject.getString("notes"),
                                             jsonObject.getString("notes"),
                                             new BigDecimal(jsonObject.getDouble("price")),
-                                            jsonObject.getString("catagory"));
+                                            jsonObject.getString("category"));
                                     listdata.add(item);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -136,6 +136,17 @@ public class ExpenseFragment extends Fragment {
                     public void onErrorResponse(VolleyError error) {
                         // TODO: Handle error
                         System.out.println(error);
+                        ArrayList<Expense> listdata = new ArrayList<Expense>();
+                                Expense item = new Expense(
+                                        "123",
+                                        "note1",
+                                        "note1",
+                                        new BigDecimal(10),
+                                        "gas");
+                                listdata.add(item);
+
+//                        recyclerView.setAdapter(new ItemListActivity.SimpleItemRecyclerViewAdapter(ExpenseFragment.this, listdata, false));
+                        recyclerView.setAdapter(new MyExpenseRecyclerViewAdapter(listdata, getActivity()));
                         new AlertDialog.Builder(getContext())
                                 .setTitle("Error")
                                 .setMessage(error.toString())
