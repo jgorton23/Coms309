@@ -16,8 +16,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -25,11 +27,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import iastate.cs309.myexpenses.R;
 
 public class AddActivity extends AppCompatActivity {
+    private  Spinner categoryBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +42,17 @@ public class AddActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        categoryBtn = findViewById(R.id.categorySpinner);
+        List<String> categoryList = new ArrayList<>();
+        categoryList.add("");
+        categoryList.add("Rent");
+        categoryList.add("Entertainment");
+        categoryList.add("Other");
+
+        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categoryList);
+        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categoryBtn.setAdapter(categoryAdapter);
 
         Button addButton = findViewById(R.id.addButton);
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -58,7 +74,8 @@ public class AddActivity extends AppCompatActivity {
         JSONObject jsonBody = new JSONObject();
         EditText price = findViewById(R.id.amountPlainText);
         jsonBody.put("price", new BigDecimal(price.getText().toString()));
-        jsonBody.put("category", "Grocery");
+//        String category = categoryBtn.getSelectedItem().toString();
+        jsonBody.put("category", "Groceries");
         EditText date = findViewById(R.id.datePlainText);
         jsonBody.put("date", date.getText());
         EditText name = findViewById(R.id.namePlainText);

@@ -142,7 +142,7 @@
             app:layout_constraintTop_toBottomOf="@+id/dateTextView" />
 
         <Spinner
-            android:id="@+id/spinner"
+            android:id="@+id/categorySpinner"
             android:layout_width="210dp"
             android:layout_height="40dp"
             android:layout_marginStart="45dp"
@@ -181,7 +181,7 @@
             app:layout_constraintBottom_toTopOf="@+id/addButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView3"
-            app:layout_constraintTop_toBottomOf="@+id/spinner" />
+            app:layout_constraintTop_toBottomOf="@+id/categorySpinner" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
