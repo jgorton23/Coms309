@@ -6,7 +6,6 @@ import android.os.Bundle;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,8 +32,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import iastate.cs309.myexpenses.expense.MyExpenseRecyclerViewAdapter;
-
 import static java.time.DayOfWeek.SUNDAY;
 import static java.time.temporal.ChronoUnit.DAYS;
 import static java.time.temporal.TemporalAdjusters.previous;
@@ -51,14 +48,10 @@ public class BarGraphFragment extends Fragment implements SeekBar.OnSeekBarChang
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
     private BarChart chart;
-    private SeekBar seekBarX, seekBarY;
 
     public BarGraphFragment() {
-        // Required empty public constructor
+
     }
 
     /**
@@ -83,8 +76,7 @@ public class BarGraphFragment extends Fragment implements SeekBar.OnSeekBarChang
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+
         }
 
     }
@@ -92,15 +84,9 @@ public class BarGraphFragment extends Fragment implements SeekBar.OnSeekBarChang
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_bar_graph, container, false);
 
         chart = rootView.findViewById(R.id.chart1);
-
-        seekBarX = rootView.findViewById(R.id.seekBar1);
-        seekBarY = rootView.findViewById(R.id.seekBar2);
-        seekBarX.setOnSeekBarChangeListener(this);
-        seekBarY.setOnSeekBarChangeListener(this);
 
         loadData();
         return rootView;
@@ -108,9 +94,6 @@ public class BarGraphFragment extends Fragment implements SeekBar.OnSeekBarChang
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
-//        tvX.setText(String.valueOf(seekBarX.getProgress()));
-//        tvY.setText(String.valueOf(seekBarY.getProgress()));
 
         chart.invalidate();
     }
