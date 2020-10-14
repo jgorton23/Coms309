@@ -30,9 +30,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import iastate.cs309.myexpenses.expense.MyExpenseRecyclerViewAdapter;
+
+import static java.time.DayOfWeek.SUNDAY;
+import static java.time.temporal.ChronoUnit.DAYS;
+import static java.time.temporal.TemporalAdjusters.previous;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -107,7 +112,6 @@ public class BarGraphFragment extends Fragment implements SeekBar.OnSeekBarChang
 //        tvX.setText(String.valueOf(seekBarX.getProgress()));
 //        tvY.setText(String.valueOf(seekBarY.getProgress()));
 
-        setData(null);
         chart.invalidate();
     }
 
@@ -123,22 +127,48 @@ public class BarGraphFragment extends Fragment implements SeekBar.OnSeekBarChang
 
     private void setData(ArrayList<Expense> expenses) {
 
+        if (expenses == null) {
+            return;
+        }
+        ArrayList<Integer> totals = new ArrayList<>();
+        ArrayList<BarEntry> values = new ArrayList<>();
+
+        for (int i = 0; i < 7; i++) {
+            totals.add(0);
+        }
+        final LocalDate today = LocalDate.now();
+        final LocalDate sunday = today.with(previous(SUNDAY));
+        expenses.forEach(expense -> {
+            try {
+                LocalDate expenseDate = LocalDate.parse(expense.date);
+                System.out.println(expenseDate);
+                if (!expenseDate.isBefore(sunday)) {
+                    int daysBetween = (int) DAYS.between(sunday, expenseDate);
+                    totals.set(daysBetween, totals.get(daysBetween) + expense.amount.intValue());
+                }
+            } catch (Exception exception){
+
+            }
+        });
+        System.out.println(today);
+
         int count = 7;
         float range = 10;
 
         float start = 1f;
 
-        ArrayList<BarEntry> values = new ArrayList<>();
-
-        for (int i = (int) start; i < start + count; i++) {
-            float val = (float) (Math.random() * (range + 1));
-
-            if (Math.random() * 100 < 25) {
-                values.add(new BarEntry(i, val, getResources().getDrawable(R.drawable.ic_baseline_friends_24)));
-            } else {
-                values.add(new BarEntry(i, val));
-            }
+        for (int i = 0; i < 7; i++) {
+            values.add(new BarEntry(i, totals.get(i)));
         }
+//        for (int i = (int) start; i < start + count; i++) {
+//            float val = (float) (Math.random() * (range + 1));
+//
+//            if (Math.random() * 100 < 25) {
+//                values.add(new BarEntry(i, val, getResources().getDrawable(R.drawable.ic_baseline_friends_24)));
+//            } else {
+//                values.add(new BarEntry(i, val));
+//            }
+//        }
 
         BarDataSet set1;
 
@@ -184,6 +214,7 @@ public class BarGraphFragment extends Fragment implements SeekBar.OnSeekBarChang
 
             chart.setData(data);
         }
+        chart.invalidate();
     }
 
     private void loadData() {
