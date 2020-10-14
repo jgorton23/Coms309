@@ -180,7 +180,7 @@ public class BarGraphFragment extends Fragment implements SeekBar.OnSeekBarChang
             chart.notifyDataSetChanged();
 
         } else {
-            set1 = new BarDataSet(values, "The year 2017");
+            set1 = new BarDataSet(values, "Starting from " + sunday);
 
             set1.setDrawIcons(false);
 
