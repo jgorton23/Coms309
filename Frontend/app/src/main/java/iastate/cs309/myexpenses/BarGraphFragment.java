@@ -97,6 +97,7 @@ public class BarGraphFragment extends Fragment implements SeekBar.OnSeekBarChang
         seekBarX.setOnSeekBarChangeListener(this);
         seekBarY.setOnSeekBarChangeListener(this);
 
+        loadData();
         return rootView;
     }
 
@@ -202,7 +203,7 @@ public class BarGraphFragment extends Fragment implements SeekBar.OnSeekBarChang
                                         "note1",
                                         "note1",
                                         new BigDecimal(10),
-                                        "gas");
+                                        "gas", "2020-10-14");
                                 listdata.add(item);
                             }
                             for (int i=0;i<response.length();i++){
@@ -213,7 +214,8 @@ public class BarGraphFragment extends Fragment implements SeekBar.OnSeekBarChang
                                             jsonObject.getString("notes"),
                                             jsonObject.getString("notes"),
                                             new BigDecimal(jsonObject.getDouble("price")),
-                                            jsonObject.getString("category"));
+                                            jsonObject.getString("category"),
+                                            jsonObject.getString("date"));
                                     listdata.add(item);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -235,7 +237,7 @@ public class BarGraphFragment extends Fragment implements SeekBar.OnSeekBarChang
                                 "note1",
                                 "note1",
                                 new BigDecimal(10),
-                                "gas");
+                                "gas", "2020-10-14");
                         listdata.add(item);
 
 //                        recyclerView.setAdapter(new ItemListActivity.SimpleItemRecyclerViewAdapter(ExpenseFragment.this, listdata, false));

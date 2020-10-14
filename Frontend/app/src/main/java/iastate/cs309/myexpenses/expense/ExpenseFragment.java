@@ -30,6 +30,8 @@ import org.json.JSONObject;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import iastate.cs309.myexpenses.BarGraphFragment;
@@ -117,7 +119,7 @@ public class ExpenseFragment extends Fragment {
                                         "note1",
                                         "note1",
                                         new BigDecimal(10),
-                                        "gas");
+                                        "gas", "2020-10-14");
                                 listdata.add(item);
                             }
                             for (int i=0;i<response.length();i++){
@@ -128,13 +130,20 @@ public class ExpenseFragment extends Fragment {
                                             jsonObject.getString("notes"),
                                             jsonObject.getString("notes"),
                                             new BigDecimal(jsonObject.getDouble("price")),
-                                            jsonObject.getString("category"));
+                                            jsonObject.getString("category"),
+                                            jsonObject.getString("date"));
                                     listdata.add(item);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
                             }
                         }
+                        Collections.sort(listdata, new Comparator<Expense>() {
+                            @Override
+                            public int compare(Expense expense, Expense t1) {
+                                return t1.date.compareTo(expense.date);
+                            }
+                        });
 //                        recyclerView.setAdapter(new ItemListActivity.SimpleItemRecyclerViewAdapter(ExpenseFragment.this, listdata, false));
                         recyclerView.setAdapter(new MyExpenseRecyclerViewAdapter(listdata, getActivity()));
                     }
@@ -150,7 +159,7 @@ public class ExpenseFragment extends Fragment {
                                         "note1",
                                         "note1",
                                         new BigDecimal(10),
-                                        "gas");
+                                        "gas", "2020-10-14");
                                 listdata.add(item);
 
 //                        recyclerView.setAdapter(new ItemListActivity.SimpleItemRecyclerViewAdapter(ExpenseFragment.this, listdata, false));
