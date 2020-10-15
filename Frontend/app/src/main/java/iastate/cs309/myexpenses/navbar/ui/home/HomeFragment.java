@@ -10,15 +10,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import iastate.cs309.myexpenses.BarGraphFragment;
 import iastate.cs309.myexpenses.ItemListActivity;
 import iastate.cs309.myexpenses.R;
 import iastate.cs309.myexpenses.add.AddActivity;
+import iastate.cs309.myexpenses.navbar.PieChartFragment;
 
 public class HomeFragment extends Fragment {
 
@@ -36,6 +39,10 @@ public class HomeFragment extends Fragment {
                 textView.setText(s);
             }
         });
+
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.parent_fragment_container, new PieChartFragment());
+        ft.commit();
 
         FloatingActionButton fab = (FloatingActionButton) root.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
