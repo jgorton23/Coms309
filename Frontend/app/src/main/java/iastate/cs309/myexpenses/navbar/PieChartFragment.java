@@ -15,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SeekBar;
-import android.widget.TextView;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
@@ -26,7 +25,6 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.MPPointF;
 
@@ -39,8 +37,7 @@ import iastate.cs309.myexpenses.R;
  * Use the {@link PieChartFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PieChartFragment extends Fragment implements SeekBar.OnSeekBarChangeListener,
-        OnChartValueSelectedListener {
+public class PieChartFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -52,8 +49,6 @@ public class PieChartFragment extends Fragment implements SeekBar.OnSeekBarChang
     private String mParam2;
 
     private PieChart chart;
-    private SeekBar seekBarX, seekBarY;
-    private TextView tvX, tvY;
 
     public PieChartFragment() {
         // Required empty public constructor
@@ -92,15 +87,6 @@ public class PieChartFragment extends Fragment implements SeekBar.OnSeekBarChang
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_pie_chart, container, false);
 
-        tvX = rootView.findViewById(R.id.tvXMax);
-        tvY = rootView.findViewById(R.id.tvYMax);
-
-        seekBarX = rootView.findViewById(R.id.seekBar1);
-        seekBarY = rootView.findViewById(R.id.seekBar2);
-
-        seekBarX.setOnSeekBarChangeListener(this);
-        seekBarY.setOnSeekBarChangeListener(this);
-
         chart = rootView.findViewById(R.id.chart1);
         chart.setUsePercentValues(true);
         chart.getDescription().setEnabled(false);
@@ -130,12 +116,6 @@ public class PieChartFragment extends Fragment implements SeekBar.OnSeekBarChang
         // chart.setUnit(" €");
         // chart.setDrawUnitsInChart(true);
 
-        // add a selection listener
-        chart.setOnChartValueSelectedListener(this);
-
-        seekBarX.setProgress(4);
-        seekBarY.setProgress(10);
-
         chart.animateY(1400, Easing.EaseInOutQuad);
         // chart.spin(2000, 0, 360);
 
@@ -152,6 +132,8 @@ public class PieChartFragment extends Fragment implements SeekBar.OnSeekBarChang
         chart.setEntryLabelColor(Color.WHITE);
 //        chart.setEntryLabelTypeface(tfRegular);
         chart.setEntryLabelTextSize(12f);
+
+        setData(10, 50);
 
         return rootView;
     }
@@ -212,15 +194,6 @@ public class PieChartFragment extends Fragment implements SeekBar.OnSeekBarChang
         chart.invalidate();
     }
 
-    @Override
-    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
-        tvX.setText(String.valueOf(seekBarX.getProgress()));
-        tvY.setText(String.valueOf(seekBarY.getProgress()));
-
-        setData(seekBarX.getProgress(), seekBarY.getProgress());
-    }
-
     private SpannableString generateCenterSpannableText() {
 
         SpannableString s = new SpannableString("MPAndroidChart\ndeveloped by Philipp Jahoda");
@@ -233,24 +206,4 @@ public class PieChartFragment extends Fragment implements SeekBar.OnSeekBarChang
         return s;
     }
 
-    @Override
-    public void onValueSelected(Entry e, Highlight h) {
-
-        if (e == null)
-            return;
-        Log.i("VAL SELECTED",
-                "Value: " + e.getY() + ", index: " + h.getX()
-                        + ", DataSet index: " + h.getDataSetIndex());
-    }
-
-    @Override
-    public void onNothingSelected() {
-        Log.i("PieChart", "nothing selected");
-    }
-
-    @Override
-    public void onStartTrackingTouch(SeekBar seekBar) {}
-
-    @Override
-    public void onStopTrackingTouch(SeekBar seekBar) {}
 }
