@@ -1,0 +1,56 @@
+stages:
+  - mavenbuild
+  - maventest
+  - autodeploy
+  - androidbuild
+  - androidtest
+
+maven-build:
+  stage: mavenbuild
+  tags: 
+    - shell
+  script:
+    - cd Backend/Backend
+    - mvn package -B
+  only:
+    refs:
+      - master
+    changes:
+      - Backend/Backend/**/*
+
+maven-test:
+  stage: maventest
+  tags:
+    - shell
+  script:
+    - cd Backend/Backend
+    - mvn test
+    - mvn package -B
+  artifacts:
+    paths:
+      - Backend/Backend/target/*.jar
+
+autoeploy:
+  stage: autodeploy
+  tags:
+    - shell
+  script:
+    - cd Backend/Backend
+    - mvn test
+    - mvn package -B
+    - sudo mv /target/*.jar //here the demo talks about web-demo and idk what the equivalent is in our project
+
+android-build:
+  image: javiersantos/android-ci:latest
+  stage: androidbuild
+  before_script:
+    - export GRADLE_USER_HOME='pwd'/.gradle
+    - chmod +x ./Frontend/gradlew
+  tags:
+    - android_tag
+  script:
+    - cd Frontend
+    - .gradlew assemble
+  artifacts:
+    paths:
+      - Frontend/app //here they reference another directory that i don't know about
