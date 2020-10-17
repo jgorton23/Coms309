@@ -106,7 +106,8 @@ public class ItemListActivity extends AppCompatActivity {
                                             jsonObject.getString("notes"),
                                             jsonObject.getString("notes"),
                                             new BigDecimal(jsonObject.getDouble("price")),
-                                            jsonObject.getString("catagory"));
+                                            jsonObject.getString("catagory"),
+                                            jsonObject.getString("date"));
                                     listdata.add(item);
                                 } catch (JSONException e) {
                                     e.printStackTrace();

@@ -45,7 +45,7 @@ public class MyExpenseRecyclerViewAdapter extends RecyclerView.Adapter<MyExpense
         holder.mIdView.setText(mValues.get(position).id);
         holder.mContentView.setText(mValues.get(position).content);
         holder.mAmountView.setText("$" + mValues.get(position).amount.toString());
-        holder.mCategory.setText(mValues.get(position).category.toString());
+        holder.mCategory.setText(mValues.get(position).date);
 
         holder.itemView.setTag(mValues.get(position));
         holder.itemView.setOnClickListener(mOnClickListener);

@@ -56,7 +56,7 @@ public class ItemDetailFragment extends Fragment {
             // Load the dummy content specified by the fragment
             // arguments. In a real-world scenario, use a Loader
             // to load content from a content provider.
-            mItem = new Expense("1", "todo", "todo", BigDecimal.ONE, "todo");
+            mItem = new Expense("1", "todo", "todo", BigDecimal.ONE, "todo", "2020-01-01");
 
             Activity activity = this.getActivity();
             CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);

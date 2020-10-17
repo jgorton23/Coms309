@@ -11,13 +11,15 @@ public class Expense {
     public final String details;
     public final BigDecimal amount;
     public final String category;
+    public final String date;
 
-    public Expense(String id, String content, String details, BigDecimal amount, String category) {
+    public Expense(String id, String content, String details, BigDecimal amount, String category, String date) {
         this.id = id;
         this.content = content;
         this.details = details;
         this.amount = amount;
         this.category = category;
+        this.date = date;
     }
 
     @Override
