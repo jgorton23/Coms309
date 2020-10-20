@@ -50,8 +50,6 @@ class Person {
 	)
 	private List<Person> friendOf;
 	
-	//private ArrayList<String> friendId = new ArrayList<String>();
-	
 	public int getId() { return id; }
 	public int getUserLevel() { return userLevel; }
 	public String getUsername() { return username; }
