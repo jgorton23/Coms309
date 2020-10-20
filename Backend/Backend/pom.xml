@@ -34,22 +34,23 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 		</dependency>
 		
-    <!-- libraries for H2 database driver - an in-memory database -->
-    <!--
+    <!-- libraries for H2 database driver - an in-memory database 
+    
 		<dependency>
 	    <groupId>com.h2database</groupId>
 	    <artifactId>h2</artifactId>
     </dependency>
-    -->
+-->
 
 
-    <!-- libraries for myql driver  -->
+    <!-- libraries for myql driver -->  
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
       <version>8.0.12</version>
       <scope>runtime</scope>
-    </dependency>
+	</dependency>
+
 
     <!-- libraries for hibernate (abstracts database) -->
     <dependency>
