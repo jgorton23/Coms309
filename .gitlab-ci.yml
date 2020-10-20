@@ -8,7 +8,7 @@ stages:
 maven-build:
   stage: mavenbuild
   tags: 
-    - shell
+    - BACKEND
   script:
     - cd Backend/Backend
     - mvn package -B
@@ -21,7 +21,7 @@ maven-build:
 maven-test:
   stage: maventest
   tags:
-    - shell
+    - BACKEND
   script:
     - cd Backend/Backend
     - mvn test
@@ -33,7 +33,7 @@ maven-test:
 autoeploy:
   stage: autodeploy
   tags:
-    - shell
+    - BACKEND
   script:
     - cd Backend/Backend
     - mvn test
@@ -47,7 +47,7 @@ android-build:
     - export GRADLE_USER_HOME='pwd'/.gradle
     - chmod +x ./Frontend/gradlew
   tags:
-    - android_tag
+    - FRONTEND
   script:
     - cd Frontend
     - .gradlew assemble
