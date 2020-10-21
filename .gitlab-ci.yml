@@ -33,7 +33,7 @@ autoDeploy:
         - cd Backend/Backend
         - mvn test
         - mvn package -B
-        - sudo mv target/test-0.0.1-SNAPSHOT.jar /target/web-demo.jar
+        - sudo mv target/*.jar /target/web-demo.jar
         - sudo systemctl stop web-demo
         - sudo systemctl start web-demo
 
