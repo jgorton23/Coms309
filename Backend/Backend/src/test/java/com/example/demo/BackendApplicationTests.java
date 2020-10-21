@@ -5,6 +5,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 // maybe add h2 dependency with scope <test>
 
+/*
 @RunWith(SpringRunner.class) 
 @DataJpaTest //changed to JpaTest according to tutorial
 public class BackendApplicationTests {
