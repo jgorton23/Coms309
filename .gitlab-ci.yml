@@ -10,7 +10,7 @@ maven-build:
     tags:
         - BACKEND
     script:
-        - cd Backend/test
+        - cd Backend/Backend
         - mvn package -B
 
 maven-test:
@@ -18,19 +18,19 @@ maven-test:
     tags:
         - BACKEND
     script:
-        - cd Backend/test
+        - cd Backend/Backend
         - mvn test
         - mvn package -B
     artifacts:
         paths:
-            - Backend/test/target/test-0.0.1-SNAPSHOT.jar
+            - Backend/Backend/*.jar
 
 autoDeploy:
     stage: autodeploy
     tags:
         - BACKEND
     script: 
-        - cd Backend/test
+        - cd Backend/Backend
         - mvn test
         - mvn package -B
         - sudo mv target/test-0.0.1-SNAPSHOT.jar /target/web-demo.jar
