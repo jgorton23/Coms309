@@ -8,11 +8,11 @@ stages:
 maven-build:
   stage: mavenbuild
   tags: 
-    - BACKEND
+    - shell
   script:
     - cd Backend/Backend
     - mvn package -B
-  only:
+    only:
     refs:
       - master
     changes:
@@ -21,7 +21,7 @@ maven-build:
 maven-test:
   stage: maventest
   tags:
-    - BACKEND
+    - shell
   script:
     - cd Backend/Backend
     - mvn test
@@ -30,15 +30,14 @@ maven-test:
     paths:
       - Backend/Backend/target/*.jar
 
-autoeploy:
+autoDeploy:
   stage: autodeploy
   tags:
-    - BACKEND
+    - shell
   script:
-    - cd Backend/Backend
-    - mvn test
-    - mvn package -B
-    - sudo mv /target/*.jar //here the demo talks about web-demo and idk what the equivalent is in our project
+    - pkill screen
+    - screen
+    - java -jar *.jar
 
 android-build:
   image: javiersantos/android-ci:latest
