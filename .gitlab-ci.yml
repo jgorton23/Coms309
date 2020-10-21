@@ -1,46 +1,41 @@
 stages:
-  - mavenbuild
-  - maventest
-  - autodeploy
-  - androidbuild
-  - androidtest
+    - mavenbuild
+    - maventest
+    - autodeploy
+    - androidbuild
+    - androidtest
 
 maven-build:
-  stage: mavenbuild
-  tags: 
-    - BACKEND
-  script:
-    - cd Backend/Backend
-    - mvn package -B
-    only:
-    refs:
-      - master
-    changes:
-      - Backend/Backend/**/*
+    stage: mavenbuild
+    tags:
+        - BACKEND
+    script:
+        - cd Backend/Backend
+        - mvn package -B
 
 maven-test:
-  stage: maventest
-  tags:
-    - BACKEND
-  script:
-    - cd Backend/Backend
-    - mvn test
-    - mvn package -B
-  artifacts:
-    paths:
-      - Backend/Backend/target/*.jar
+    stage: maventest
+    tags:
+        - BACKEND
+    script:
+        - cd Backend/Backend
+        - mvn test
+        - mvn package -B
+    artifacts:
+        paths:
+            - Backend/Backend/*.jar
 
 autoDeploy:
-  stage: autodeploy
-  tags:
-    - BACKEND
-  script:
-    - cd Backend/test
-    - mvn test
-    - mvn package -B
-    - sudo mv target/test-0.0.1-SNAPSHOT.jar /target/web-demo.jar
-    - sudo systemctl stop web-demo
-    - sudo systemctl start web-demo
+    stage: autodeploy
+    tags:
+        - BACKEND
+    script: 
+        - cd Backend/Backend
+        - mvn test
+        - mvn package -B
+        - sudo mv target/test-0.0.1-SNAPSHOT.jar /target/web-demo.jar
+        - sudo systemctl stop web-demo
+        - sudo systemctl start web-demo
 
 android-build:
   image: javiersantos/android-ci:latest
