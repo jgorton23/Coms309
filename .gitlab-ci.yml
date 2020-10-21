@@ -50,4 +50,4 @@ android-build:
     - ./gradlew assemble
   artifacts:
     paths:
-      - Frontend/app //here they reference another directory that i don't know about
+      - Frontend/app/build/outputs/
