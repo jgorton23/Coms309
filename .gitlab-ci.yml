@@ -35,9 +35,12 @@ autoDeploy:
   tags:
     - BACKEND
   script:
-    - pkill screen
-    - screen
-    - java -jar *.jar
+    - cd Backend/test
+    - mvn test
+    - mvn package -B
+    - sudo mv target/test-0.0.1-SNAPSHOT.jar /target/web-demo.jar
+    - sudo systemctl stop web-demo
+    - sudo systemctl start web-demo
 
 android-build:
   image: javiersantos/android-ci:latest
@@ -49,7 +52,7 @@ android-build:
     - FRONTEND
   script:
     - cd Frontend
-    - .gradlew assemble
+    - ./gradlew assemble
   artifacts:
     paths:
       - Frontend/app //here they reference another directory that i don't know about
