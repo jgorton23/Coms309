@@ -1,7 +1,10 @@
+variables:
+  DOCKER_DRIVER: overlay
+
 stages:
-    - mavenbuild
-    - maventest
-    - autodeploy
+#    - mavenbuild
+#    - maventest
+#    - autodeploy
     - androidbuild
     - androidtest
 
@@ -40,8 +43,6 @@ autoDeploy:
 android-build:
   image: javiersantos/android-ci:latest
   stage: androidbuild
-  variables:
-    DOCKER_DRIVER: overlay
   before_script:
     - export DOCKER_HOST=tcp://localhost:2375
     - export GRADLE_USER_HOME='pwd'/.gradle
