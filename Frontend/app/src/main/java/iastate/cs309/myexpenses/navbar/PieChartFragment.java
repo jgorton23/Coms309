@@ -1,5 +1,7 @@
 package iastate.cs309.myexpenses.navbar;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -10,26 +12,39 @@ import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SeekBar;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.DefaultAxisValueFormatter;
+import com.github.mikephil.charting.formatter.DefaultValueFormatter;
+import com.github.mikephil.charting.formatter.LargeValueFormatter;
 import com.github.mikephil.charting.formatter.PercentFormatter;
-import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.MPPointF;
 
-import java.util.ArrayList;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.TreeMap;
+
+import iastate.cs309.myexpenses.Expense;
 import iastate.cs309.myexpenses.R;
 
 /**
@@ -133,19 +148,29 @@ public class PieChartFragment extends Fragment {
 //        chart.setEntryLabelTypeface(tfRegular);
         chart.setEntryLabelTextSize(12f);
 
-        setData(10, 50);
+        loadData();
 
         return rootView;
     }
 
-    private void setData(int count, float range) {
+    private void setData(ArrayList<Expense> listdata) {
+        int count = 10;
+        float range = 50;
         ArrayList<PieEntry> entries = new ArrayList<>();
+        Map<String, BigDecimal> map = new TreeMap<>();
+        for (int i = 0; i < listdata.size(); i++) {
+            Expense expense = listdata.get(i);
+            String category = expense.category;
+            BigDecimal amount = expense.amount;
+            BigDecimal totalAmount = map.computeIfAbsent(category, x -> new BigDecimal(0)).add(amount);
+            map.put(category, totalAmount);
+        }
 
-        // NOTE: The order of the entries when being added to the entries array determines their position around the center of
-        // the chart.
-        for (int i = 0; i < count ; i++) {
-            entries.add(new PieEntry((float) ((Math.random() * range) + range / 5),
-                   "abc",
+        System.out.println(map);
+
+        for (String category: map.keySet()) {
+            entries.add(new PieEntry(map.get(category).floatValue(),
+                    category,
                     getResources().getDrawable(R.drawable.ic_baseline_friends_24)));
         }
 
@@ -182,9 +207,10 @@ public class PieChartFragment extends Fragment {
         //dataSet.setSelectionShift(0f);
 
         PieData data = new PieData(dataSet);
-        data.setValueFormatter(new PercentFormatter());
+//        data.setValueFormatter(new PercentFormatter());
+        data.setValueFormatter(new DefaultValueFormatter(2));
         data.setValueTextSize(11f);
-        data.setValueTextColor(Color.WHITE);
+        data.setValueTextColor(Color.BLACK);
 //        data.setValueTypeface(tfLight);
         chart.setData(data);
 
@@ -204,6 +230,86 @@ public class PieChartFragment extends Fragment {
         s.setSpan(new StyleSpan(Typeface.ITALIC), s.length() - 14, s.length(), 0);
         s.setSpan(new ForegroundColorSpan(ColorTemplate.getHoloBlue()), s.length() - 14, s.length(), 0);
         return s;
+    }
+
+    private void loadData() {
+        String url = "http://coms-309-ug-02.cs.iastate.edu:8080/getItem";
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        ArrayList<Expense> listdata = new ArrayList<Expense>();
+                        if (response != null) {
+                            //while the server doesn't work
+                            if (response.length() == 0) {
+                                Expense item = new Expense(
+                                        "123",
+                                        "note1",
+                                        "note1",
+                                        new BigDecimal(10),
+                                        "gas", "2020-10-14");
+                                listdata.add(item);
+                            }
+                            for (int i=0;i<response.length();i++){
+                                try {
+                                    JSONObject jsonObject = response.getJSONObject(i);
+                                    Expense item = new Expense(
+                                            jsonObject.getString("id"),
+                                            jsonObject.getString("notes"),
+                                            jsonObject.getString("notes"),
+                                            new BigDecimal(jsonObject.getDouble("price")),
+                                            jsonObject.getString("category"),
+                                            jsonObject.getString("date"));
+                                    listdata.add(item);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+//                        recyclerView.setAdapter(new ItemListActivity.SimpleItemRecyclerViewAdapter(ExpenseFragment.this, listdata, false));
+                        setData(listdata);
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO: Handle error
+                        System.out.println(error);
+                        ArrayList<Expense> listdata = new ArrayList<Expense>();
+                        Expense item = new Expense(
+                                "123",
+                                "note1",
+                                "note1",
+                                new BigDecimal(10),
+                                "gas", "2020-10-14");
+                        listdata.add(item);
+
+//                        recyclerView.setAdapter(new ItemListActivity.SimpleItemRecyclerViewAdapter(ExpenseFragment.this, listdata, false));
+                        setData(listdata);
+                        new AlertDialog.Builder(getContext())
+                                .setTitle("Error")
+                                .setMessage(error.toString())
+
+                                // Specifying a listener allows you to take an action before dismissing the dialog.
+                                // The dialog is automatically dismissed when a dialog button is clicked.
+                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // Continue with delete operation
+                                    }
+                                })
+
+                                // A null listener allows the button to dismiss the dialog and take no further action.
+                                //.setNegativeButton(android.R.string.no, null)
+                                //.setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
+                    }
+                });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+
+        requestQueue.add(jsonArrayRequest);
     }
 
 }
