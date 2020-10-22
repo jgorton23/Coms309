@@ -1,6 +1,8 @@
 variables:
   DOCKER_DRIVER: overlay
 
+image: javiersantos/android-ci:latest
+
 stages:
 #    - mavenbuild
 #    - maventest
@@ -41,7 +43,6 @@ stages:
 #        - sudo systemctl start web-demo
 
 android-build:
-  image: javiersantos/android-ci:latest
   stage: androidbuild
   before_script:
     - docker info
