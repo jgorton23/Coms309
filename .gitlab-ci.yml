@@ -43,6 +43,7 @@ android-build:
   variables:
     DOCKER_HOST: tcp://localhost:2375
   before_script:
+    - export DOCKER_HOST=tcp://localhost:2375
     - export GRADLE_USER_HOME='pwd'/.gradle
     - chmod +x ./Frontend/gradlew
   tags:
