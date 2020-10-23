@@ -39,4 +39,5 @@ public class ItemAdd {
 		public String getNotes() { return notes; }
 		public Person getPerson() {	return person; }
 		public void setPerson(Person p) { person = p;}
+		public void setPrice(int p) { price = (double) p; }
 }

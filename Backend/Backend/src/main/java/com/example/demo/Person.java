@@ -20,6 +20,9 @@ class Person {
 	@Column
 	private int userLevel;
 	
+	@Column
+	private int budget;
+	
 	@Column(unique=true)
 	private String username;
 	
@@ -54,11 +57,25 @@ class Person {
 	public int getUserLevel() { return userLevel; }
 	public String getUsername() { return username; }
 	public String getPassword() { return password; }
-	public void setAddress(String password) { this.password = password; }
+	public void setPassword(String p) { password = p; }
 	public List<ItemAdd> getItemsBought() { return itemsBought; }
 	public void setItemsBought(List<ItemAdd> items) { itemsBought = items; }
 	public String toString() { return username; }
 	public List<Subscription> getSubscriptionsBought() { return subscriptionsBought;}
 	public List<Person> getFriends() { return friends; }
 	public List<Person> getFriendsOf() { return friendOf; }
+	public int getBudget() { return budget; }
+	public void setBudget(int b) { budget = b; }
+	
+	public boolean overBudget() {
+		int total = 0;
+		for (int i = 0; i < itemsBought.size(); i++) {
+			total += itemsBought.get(i).getPrice();
+		}
+		return (total<budget);
+	}
+	
+	public void addItem(ItemAdd I) {
+		itemsBought.add(I);
+	}
 }

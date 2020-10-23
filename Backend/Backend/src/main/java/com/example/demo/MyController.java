@@ -69,6 +69,10 @@ public class MyController {
 	
 	@RequestMapping("/getSummary/{id}")
 	JSONObject getSummary(@PathVariable int id) {
+		return getPersonSummary(id);
+	}
+	
+	public JSONObject getPersonSummary(int id) {
 		Optional<Person> optionalP = db.findById(id);
 		if (optionalP.isPresent()) {
 			Person p = optionalP.get();
@@ -105,7 +109,7 @@ public class MyController {
 			return new JSONObject();
 		}
 	}
-	
+
 	@DeleteMapping("/person/{id}")
 	String deletePerson(@PathVariable Integer id) {
 		db.deleteById(id);
