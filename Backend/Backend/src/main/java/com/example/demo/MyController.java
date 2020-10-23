@@ -74,7 +74,7 @@ public class MyController {
 			Person p = optionalP.get();
 			List<ItemAdd> items = p.getItemsBought();
 			JSONObject obj = new JSONObject();
-			int groceries = 0, utilities = 0, rent = 0;
+			int groceries = 0, utilities = 0, rent = 0, entertainment = 0, leisure = 0;
 			for (int i = 0; i < items.size(); i++) {
 				if (items.get(i).getCategory() == "groceries") {
 					groceries += items.get(i).getPrice();
@@ -85,11 +85,19 @@ public class MyController {
 				else if (items.get(i).getCategory() == "rent") {
 					rent += items.get(i).getPrice();
 				}
+				else if (items.get(i).getCategory() == "entertainment") {
+					entertainment += items.get(i).getPrice();
+				}
+				else if (items.get(i).getCategory() == "leisure") {
+					leisure += items.get(i).getPrice();
+				}
 			}
 			try {
 				obj.put("groceries", groceries);
 				obj.put("utilities", utilities);
 				obj.put("rent", rent);
+				obj.put("entertainment", entertainment);
+				obj.put("leisure", leisure);
 			} catch (JSONException e) { return new JSONObject(); }
 			return obj;
 		}
