@@ -38,7 +38,7 @@ autoDeploy:
         - sudo systemctl start web-demo
 
 android-build:
-  image: javiersantos/android-ci:latest
+#  image: javiersantos/android-ci:latest
   stage: androidbuild
   before_script:
     - docker info
@@ -46,7 +46,7 @@ android-build:
     - export GRADLE_USER_HOME='pwd'/.gradle
     - chmod +x ./Frontend/gradlew
   tags:
-    - FRONTEND
+    - ANDROID
   script:
     - cd Frontend
     - ./gradlew assemble
