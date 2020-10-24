@@ -28,10 +28,7 @@ import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.DefaultAxisValueFormatter;
 import com.github.mikephil.charting.formatter.DefaultValueFormatter;
-import com.github.mikephil.charting.formatter.LargeValueFormatter;
-import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.MPPointF;
 
@@ -102,6 +99,14 @@ public class PieChartFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_pie_chart, container, false);
 
+        initChart(rootView);
+
+        loadData();
+
+        return rootView;
+    }
+
+    PieChart initChart(View rootView) {
         chart = rootView.findViewById(R.id.chart1);
         chart.setUsePercentValues(true);
         chart.getDescription().setEnabled(false);
@@ -148,9 +153,7 @@ public class PieChartFragment extends Fragment {
 //        chart.setEntryLabelTypeface(tfRegular);
         chart.setEntryLabelTextSize(12f);
 
-        loadData();
-
-        return rootView;
+        return chart;
     }
 
     private void setData(ArrayList<Expense> listdata) {
