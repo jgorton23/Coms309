@@ -41,8 +41,6 @@ android-build:
 #  image: javiersantos/android-ci:latest
   stage: androidbuild
   before_script:
-    - docker info
-    - export DOCKER_HOST=tcp://localhost:2375
     - export GRADLE_USER_HOME='pwd'/.gradle
     - chmod +x ./Frontend/gradlew
   tags:
