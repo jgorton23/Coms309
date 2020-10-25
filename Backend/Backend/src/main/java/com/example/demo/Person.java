@@ -34,9 +34,10 @@ class Person {
 	
 	@ManyToMany
 	@JoinTable(
-	name = "subscriptionsUsers", 
-	joinColumns = @JoinColumn(name = "user_id"), 
-	inverseJoinColumns = @JoinColumn(name = "subscription_id"))
+		name = "subscriptionsUsers", 
+		joinColumns = @JoinColumn(name = "user_id"), 
+		inverseJoinColumns = @JoinColumn(name = "subscription_id")
+	)
 	private List<Subscription> subscriptionsBought;
 	
 	@ManyToMany
