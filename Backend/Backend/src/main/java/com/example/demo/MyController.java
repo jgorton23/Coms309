@@ -110,27 +110,16 @@ public class MyController {
 		}
 	}
 
-	@RequestMapping("/verifyLogin/{username}/{password}")
-	JSONObject verifyLogin(@PathVariable String username, @Pathvariable String password) {
-		Person p = db.findByUserName(username);
-		return verifyPassword(p, password);
+	@PostMapping("/verifyLogin")
+	JSONObject verifyLogin(@RequestBody Person p) {
+		Person p2 = db.findByUserName(p.getUsername());
+		return verifyPassword(p2, p.getPassword());
 	}
 
 	public JSONObject verifyPassword(Person person, String password){
-
-		//List<Person> persons = db.findAll();
-
 		JSONObject obj = new JSONObject();
 
-		// for(i=0;i<persons.length;i++){
-		// 	Person p = persons.get(i);
-		// 	if(p.getUsername == this.username){
-
-				
-
-			//} //related to other commented out section
-			return new JSONObject();
-		//} //related to other commented out section
+		return new JSONObject();
 	}
 
 	@DeleteMapping("/person/{id}")
