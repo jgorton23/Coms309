@@ -112,11 +112,11 @@ public class MyController {
 
 	@RequestMapping("/verifyLogin/{username}/{password}")
 	JSONObject verifyLogin(@PathVariable String username, @Pathvariable String password) {
-		return verifyLogin(username, password);
+		Person p = db.findByUserName(username);
+		return verifyPassword(p, password);
 	}
 
-	public JSONObject verifyLogin(String username, String password){
-		Person p = db.findByUserName(username);
+	public JSONObject verifyPassword(Person person, String password){
 
 		//List<Person> persons = db.findAll();
 
@@ -126,17 +126,7 @@ public class MyController {
 		// 	Person p = persons.get(i);
 		// 	if(p.getUsername == this.username){
 
-				// if(p.getPassword == this.password){
-				// 	try {
-				// 		obj.put("userLevel", p.getUserLevel);
-				// 		obj.put("username", p.getUsername);
-				// 		obj.put("password", p.getPassword);
-				// 		obj.put("subscriptionsBought", p.getSubscriptionsBought);
-				// 		obj.put("friends", p.getFriends);
-				// 		obj.put("firendsOf", p.getFriendsOf);
-				// 	} catch (JSONException e) { return new JSONObject(); }
-				// 	return obj;
-				// }
+				
 
 			//} //related to other commented out section
 			return new JSONObject();
