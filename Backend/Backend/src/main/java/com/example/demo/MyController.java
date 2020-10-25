@@ -129,7 +129,7 @@ public class MyController {
 						obj.put("password", p.getPassword);
 						obj.put("subscriptionsBought", p.getSubscriptionsBought);
 						obj.put("friends", p.getFriends);
-						obj.put("firendsOf", p.getFriendsOf)
+						obj.put("firendsOf", p.getFriendsOf);
 					} catch (JSONException e) { return new JSONObject(); }
 					return obj;
 				}
