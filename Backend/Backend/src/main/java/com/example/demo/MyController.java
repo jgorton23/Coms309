@@ -124,7 +124,18 @@ public class MyController {
 
 	public JSONObject verifyPassword(Person person, String password){
 		JSONObject obj = new JSONObject();
-
+		if(person.getPassword()==password){
+			try {
+				obj.put("id", person.getId());
+				obj.put("userLevel", person.getUserLevel());
+				obj.put("username", person.getUsername());
+				obj.put("password", person.getPassword());
+				obj.put("subscriptionsBought", person.getSubscriptionsBought());
+				obj.put("friends", person.getFriends());
+				obj.put("friendsOf", person.friendsOf());
+			} catch (JSONException e) { return new JSONObject(); }
+			return obj;
+		}
 		return new JSONObject();
 	}
 
