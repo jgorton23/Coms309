@@ -132,7 +132,7 @@ public class MyController {
 				obj.put("password", person.getPassword());
 				obj.put("subscriptionsBought", person.getSubscriptionsBought());
 				obj.put("friends", person.getFriends());
-				obj.put("friendsOf", person.friendsOf());
+				obj.put("friendsOf", person.getFriendsOf());
 			} catch (JSONException e) { return new JSONObject(); }
 			return obj;
 		}
