@@ -19,7 +19,7 @@ public class SubscriptionController {
 	
 	
 	@RequestMapping("/getSubscriptions")
-	public List<Subscription> findAllItems() {
+	public Set<Subscription> findAllItems() {
 		return subDB.findAll();
 	}
 	

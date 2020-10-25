@@ -38,7 +38,7 @@ class Person {
 		joinColumns = @JoinColumn(name = "user_id"), 
 		inverseJoinColumns = @JoinColumn(name = "subscription_id")
 	)
-	private List<Subscription> subscriptionsBought;
+	private Set<Subscription> subscriptionsBought;
 	
 	@ManyToMany
 	@JoinTable(name="tbl_friends",
