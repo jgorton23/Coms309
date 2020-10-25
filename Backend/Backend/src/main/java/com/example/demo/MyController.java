@@ -110,6 +110,11 @@ public class MyController {
 		}
 	}
 
+	@RequestMapping("/verifyLogin/{username}/{password}")
+	JSONObject verifyLogin(@PathVariable String username, @Pathvariable String password) {
+		return verifyLogin(username, password);
+	}
+
 	public JSONObject verifyLogin(String username, String password){
 		List<Person> persons = db.findAll();
 		JSONObject obj = new JSONObject();
