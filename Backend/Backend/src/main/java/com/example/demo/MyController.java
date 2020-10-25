@@ -126,17 +126,18 @@ public class MyController {
 		// 	Person p = persons.get(i);
 		// 	if(p.getUsername == this.username){
 
-				if(p.getPassword == this.password){
-					try {
-						obj.put("userLevel", p.getUserLevel);
-						obj.put("username", p.getUsername);
-						obj.put("password", p.getPassword);
-						obj.put("subscriptionsBought", p.getSubscriptionsBought);
-						obj.put("friends", p.getFriends);
-						obj.put("firendsOf", p.getFriendsOf);
-					} catch (JSONException e) { return new JSONObject(); }
-					return obj;
-				}
+				// if(p.getPassword == this.password){
+				// 	try {
+				// 		obj.put("userLevel", p.getUserLevel);
+				// 		obj.put("username", p.getUsername);
+				// 		obj.put("password", p.getPassword);
+				// 		obj.put("subscriptionsBought", p.getSubscriptionsBought);
+				// 		obj.put("friends", p.getFriends);
+				// 		obj.put("firendsOf", p.getFriendsOf);
+				// 	} catch (JSONException e) { return new JSONObject(); }
+				// 	return obj;
+				// }
+
 			//} //related to other commented out section
 			return new JSONObject();
 		//} //related to other commented out section
