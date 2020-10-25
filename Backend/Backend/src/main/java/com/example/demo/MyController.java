@@ -116,11 +116,12 @@ public class MyController {
 	}
 
 	public JSONObject verifyLogin(String username, String password){
-		List<Person> persons = db.findAll();
+		Person p = db.findByUserName(username);
+		//List<Person> persons = db.findAll();
 		JSONObject obj = new JSONObject();
-		for(i=0;i<persons.length;i++){
-			Person p = persons.get(i);
-			if(p.getUsername == this.username){
+		// for(i=0;i<persons.length;i++){
+		// 	Person p = persons.get(i);
+		// 	if(p.getUsername == this.username){
 				if(p.getPassword == this.password){
 					try {
 						obj.put("userLevel", p.getUserLevel);
@@ -132,9 +133,9 @@ public class MyController {
 					} catch (JSONException e) { return new JSONObject(); }
 					return obj;
 				}
-			}
+			//}
 			return new JSONObject();
-		}
+		//}
 	}
 
 	@DeleteMapping("/person/{id}")
