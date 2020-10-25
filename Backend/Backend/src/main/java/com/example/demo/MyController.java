@@ -112,8 +112,14 @@ public class MyController {
 
 	@PostMapping("/verifyLogin")
 	JSONObject verifyLogin(@RequestBody Person p) {
-		Person p2 = db.findByUserName(p.getUsername());
-		return verifyPassword(p2, p.getPassword());
+		List<Person> persons = db.findAll();
+		for(int i=0; i < persons.size();i++){
+			Person p2 = persons.get(i);
+			if(p2.getUsername() == p.getUsername()){
+				return verifyPassword(p2, p.getPassword());
+			}
+		}
+		return new JSONObject();
 	}
 
 	public JSONObject verifyPassword(Person person, String password){
