@@ -117,11 +117,15 @@ public class MyController {
 
 	public JSONObject verifyLogin(String username, String password){
 		Person p = db.findByUserName(username);
+
 		//List<Person> persons = db.findAll();
+
 		JSONObject obj = new JSONObject();
+
 		// for(i=0;i<persons.length;i++){
 		// 	Person p = persons.get(i);
 		// 	if(p.getUsername == this.username){
+
 				if(p.getPassword == this.password){
 					try {
 						obj.put("userLevel", p.getUserLevel);
@@ -133,9 +137,9 @@ public class MyController {
 					} catch (JSONException e) { return new JSONObject(); }
 					return obj;
 				}
-			//}
+			//} //related to other commented out section
 			return new JSONObject();
-		//}
+		//} //related to other commented out section
 	}
 
 	@DeleteMapping("/person/{id}")
