@@ -110,6 +110,28 @@ public class MyController {
 		}
 	}
 
+	public JSONObject verifyLogin(String username, String password){
+		List<Person> persons = db.findAll();
+		JSONObject obj = new JSONObject();
+		for(i=0;i<persons.length;i++){
+			Person p = persons.get(i);
+			if(p.getUsername == this.username){
+				if(p.getPassword == this.password){
+					try {
+						obj.put("userLevel", p.getUserLevel);
+						obj.put("username", p.getUsername);
+						obj.put("password", p.getPassword);
+						obj.put("subscriptionsBought", p.getSubscriptionsBought);
+						obj.put("friends", p.getFriends);
+						obj.put("firendsOf", p.getFriendsOf)
+					} catch (JSONException e) { return new JSONObject(); }
+					return obj;
+				}
+			}
+			return new JSONObject();
+		}
+	}
+
 	@DeleteMapping("/person/{id}")
 	String deletePerson(@PathVariable Integer id) {
 		db.deleteById(id);
