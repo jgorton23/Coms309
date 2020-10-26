@@ -34,9 +34,13 @@ public class Subscription {
 		
 		public int getId() { return id; }
 		public String getName() { return name; }
+		public void setName(String n){ name = n; }
 		public Double getPrice() { return price; }
+		public void setPrice(Double n){ price = n; }
 		public Date getDate() { return date; }
+		public void setDate(Date d){ date = d; }
 		public String getNotes() { return notes; }
+		public void setNotes(String n){ notes = n; }
 		public int getPerson() { return posterId; }
 		public void setPosterId(int i) { posterId = i;}
 		public List<Person> getUsersBought() { return users;}

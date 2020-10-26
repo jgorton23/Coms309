@@ -37,5 +37,17 @@ class BackendApplicationTests {
 		
 		assertThat(p.overBudget());
 	}
+
+	@Test
+	public void testSubscribe() {
+		Person p = new Person();
+		ArrayList<Subscription> sublst = new ArrayList<Subscription>();
+		p.setSubsciptionsBought(itemlst);
+		Subscription s = new Subscription();
+		s.setNotes("Subscribed");
+		p.subscribe(s);
+
+		assertThat(p.getSubscriptionsBought() == s)
+	}
 	
 }
