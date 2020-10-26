@@ -63,6 +63,7 @@ class Person {
 	public void setItemsBought(List<ItemAdd> items) { itemsBought = items; }
 	public String toString() { return username; }
 	public List<Subscription> getSubscriptionsBought() { return subscriptionsBought;}
+	public void setSubscriptionsBought(List<Subscription> subs) {subscriptionsBought = subs;}
 	public List<Person> getFriends() { return friends; }
 	public List<Person> getFriendsOf() { return friendOf; }
 	public int getBudget() { return budget; }
@@ -78,5 +79,9 @@ class Person {
 	
 	public void addItem(ItemAdd I) {
 		itemsBought.add(I);
+	}
+
+	public void subscribe(Subscription s){
+		subscriptionsBought.add(s);
 	}
 }
