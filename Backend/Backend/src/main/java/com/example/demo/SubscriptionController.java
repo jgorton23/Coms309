@@ -25,7 +25,7 @@ public class SubscriptionController {
 	
 	@RequestMapping("/getSubscriptions/{id}")
 	List<Subscription> findAllItemsByID(@PathVariable int id) {
-		List<Subscription> l = new List<Subscription>;
+		List<Subscription> l = new List<Subscription>();
 	}
 	
 	@PostMapping("/addSubscription")
