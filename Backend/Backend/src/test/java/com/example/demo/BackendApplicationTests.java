@@ -47,7 +47,7 @@ class BackendApplicationTests {
 		s.setNotes("Subscribed");
 		p.subscribe(s);
 
-		assertThat(p.getSubscriptionsBought() == s)
+		assertThat(p.getSubscriptionsBought() == s);
 	}
 	
 }
