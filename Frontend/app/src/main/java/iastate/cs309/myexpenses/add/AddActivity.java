@@ -91,7 +91,10 @@ public class AddActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    saveData();
+                    String category = categoryBtn.getSelectedItem().toString();
+                    TextView date = findViewById(R.id.datePlainText);
+                    if(!category.equals("") && !date.getText().toString().equals("Choose Date"))
+                        saveData();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -108,7 +111,7 @@ public class AddActivity extends AppCompatActivity {
         jsonBody.put("price", new BigDecimal(price.getText().toString()));
         String category = categoryBtn.getSelectedItem().toString();
         jsonBody.put("category", category);
-        EditText date = findViewById(R.id.datePlainText);
+        TextView date = findViewById(R.id.datePlainText);
         jsonBody.put("date", date.getText());
         EditText name = findViewById(R.id.namePlainText);
         jsonBody.put("notes", name.getText());
