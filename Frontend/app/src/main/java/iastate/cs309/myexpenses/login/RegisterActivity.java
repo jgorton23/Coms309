@@ -36,6 +36,13 @@ public class RegisterActivity extends AppCompatActivity {
                 startActivity(registerIntent);
             }
         });
+        mButtonRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent logInScreen = new Intent(RegisterActivity.this, LoginActivity.class);
+                startActivity(logInScreen);
+            }
+        });
 
     }
 }
