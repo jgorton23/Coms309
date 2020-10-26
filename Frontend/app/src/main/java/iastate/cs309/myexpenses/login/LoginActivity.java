@@ -54,10 +54,10 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(!mTextUsername.getText().toString().equals("") && !mTextPassword.getText().toString().equals("")){
                     //Temporary ArrayList of Users to compare to when logging in
-                    ArrayList<User> tempList = new ArrayList<>();
-                    tempList.add(new User("1", "polina", "123"));
-                    tempList.add(new User("2", "kate", "4567"));
-                    if(validateUser(tempList)){
+//                    ArrayList<User> tempList = new ArrayList<>();
+//                    tempList.add(new User("1", "polina", "123"));
+//                    tempList.add(new User("2", "kate", "4567"));
+                    if(validateUser(loadData())){
                         Intent loginToApp = new Intent(LoginActivity.this, BottomNavBarActivity.class);
                         startActivity(loginToApp);
                     }
