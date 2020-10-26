@@ -91,7 +91,10 @@ public class AddActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    saveData();
+                    String category = categoryBtn.getSelectedItem().toString();
+                    TextView date = findViewById(R.id.datePlainText);
+                    if(!category.equals("") && !date.getText().toString().equals("Choose Date"))
+                        saveData();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
