@@ -43,12 +43,12 @@
         android:hint="@string/confirm_password"/>
 
     <Button
-        android:id="@+id/button_login"
+        android:id="@+id/button_register"
         android:layout_width="190dp"
         android:layout_height="40dp"
         android:layout_marginTop="20dp"
         android:background="#00BCD4"
-        android:text="@string/login"
+        android:text="@string/register1"
         />
 
     <LinearLayout
@@ -61,15 +61,15 @@
             android:layout_width="wrap_content"
             android:layout_height="35dp"
             android:textColor="#ffffff"
-            android:text="@string/not_registered"/>
+            android:text="@string/already_registered"/>
         <TextView
-            android:id="@+id/textview_register"
+            android:id="@+id/textview_login"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
             android:paddingLeft="10dp"
             android:textStyle="bold"
             android:textColor="#00BCD4"
-            android:text="@string/register"/>
+            android:text="@string/login1"/>
 
     </LinearLayout>
 
