@@ -36,7 +36,7 @@ public class Subscription {
 		public String getName() { return name; }
 		public void setName(String n){ name = n; }
 		public Double getPrice() { return price; }
-		public void setPrice(int n){ price = n; }
+		public void setPrice(Double n){ price = n; }
 		public Date getDate() { return date; }
 		public void setDate(Date d){ date = d; }
 		public String getNotes() { return notes; }
