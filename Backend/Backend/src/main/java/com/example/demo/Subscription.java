@@ -30,7 +30,7 @@ public class Subscription {
 		private int posterId;
 		
 		@ManyToMany(mappedBy = "subscriptionsBought")
-		Set<Person> users;
+		List<Person> users;
 		
 		public int getId() { return id; }
 		public String getName() { return name; }
@@ -39,5 +39,5 @@ public class Subscription {
 		public String getNotes() { return notes; }
 		public int getPerson() { return posterId; }
 		public void setPosterId(int i) { posterId = i;}
-		public Set<Person> getUsersBought() { return users;}
+		public List<Person> getUsersBought() { return users;}
 }

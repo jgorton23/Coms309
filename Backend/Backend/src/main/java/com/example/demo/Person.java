@@ -38,7 +38,7 @@ class Person {
 		joinColumns = @JoinColumn(name = "user_id"), 
 		inverseJoinColumns = @JoinColumn(name = "subscription_id")
 	)
-	private Set<Subscription> subscriptionsBought;
+	private List<Subscription> subscriptionsBought;
 	
 	@ManyToMany
 	@JoinTable(name="tbl_friends",
@@ -62,7 +62,7 @@ class Person {
 	public List<ItemAdd> getItemsBought() { return itemsBought; }
 	public void setItemsBought(List<ItemAdd> items) { itemsBought = items; }
 	public String toString() { return username; }
-	public Set<Subscription> getSubscriptionsBought() { return subscriptionsBought;}
+	public List<Subscription> getSubscriptionsBought() { return subscriptionsBought;}
 	public List<Person> getFriends() { return friends; }
 	public List<Person> getFriendsOf() { return friendOf; }
 	public int getBudget() { return budget; }
