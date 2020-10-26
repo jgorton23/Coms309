@@ -37,8 +37,11 @@ public class LoginActivity extends AppCompatActivity {
         mButtonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent loginToApp = new Intent(LoginActivity.this, BottomNavBarActivity.class);
-                startActivity(loginToApp);
+                if(!mTextUsername.getText().toString().equals("") && !mTextPassword.getText().toString().equals("")){
+                    Intent loginToApp = new Intent(LoginActivity.this, BottomNavBarActivity.class);
+                    startActivity(loginToApp);
+                }
+
             }
         });
 
