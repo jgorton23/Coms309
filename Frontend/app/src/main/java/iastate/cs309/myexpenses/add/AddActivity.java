@@ -108,7 +108,7 @@ public class AddActivity extends AppCompatActivity {
         jsonBody.put("price", new BigDecimal(price.getText().toString()));
         String category = categoryBtn.getSelectedItem().toString();
         jsonBody.put("category", category);
-        EditText date = findViewById(R.id.datePlainText);
+        TextView date = findViewById(R.id.datePlainText);
         jsonBody.put("date", date.getText());
         EditText name = findViewById(R.id.namePlainText);
         jsonBody.put("notes", name.getText());
