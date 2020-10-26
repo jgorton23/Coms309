@@ -4,17 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".login.LoginActivity"
+    android:background="#123456"
     android:orientation="vertical"
-    android:background="#ABC4F1E6"
-    android:gravity="center_horizontal">
+    android:gravity="center_horizontal"
+    tools:context=".login.RegisterActivity">
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="127dp"
         android:layout_marginTop="70dp"
         />
-    
+
     <EditText
         android:id="@+id/edittext_username"
         android:layout_width="190dp"
@@ -32,6 +32,15 @@
         android:drawableLeft="@drawable/ic_baseline_lock_24"
         android:background="#ffffff"
         android:hint="@string/password"/>
+
+    <EditText
+        android:id="@+id/edittext_cnf_password"
+        android:layout_width="190dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:drawableLeft="@drawable/ic_baseline_lock_24"
+        android:background="#ffffff"
+        android:hint="@string/confirm_password"/>
 
     <Button
         android:id="@+id/button_login"
@@ -51,6 +60,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="35dp"
+            android:textColor="#ffffff"
             android:text="@string/not_registered"/>
         <TextView
             android:id="@+id/textview_register"
