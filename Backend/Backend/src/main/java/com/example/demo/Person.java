@@ -62,7 +62,7 @@ class Person {
 	public List<ItemAdd> getItemsBought() { return itemsBought; }
 	public void setItemsBought(List<ItemAdd> items) { itemsBought = items; }
 	public String toString() { return username; }
-	public List<Subscription> getSubscriptionsBought() { return subscriptionsBought;}
+	public Set<Subscription> getSubscriptionsBought() { return subscriptionsBought;}
 	public List<Person> getFriends() { return friends; }
 	public List<Person> getFriendsOf() { return friendOf; }
 	public int getBudget() { return budget; }
