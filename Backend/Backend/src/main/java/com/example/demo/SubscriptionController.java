@@ -23,7 +23,7 @@ public class SubscriptionController {
 		return subDB.findAll();
 	}
 	
-	/*
+	
 	@PostMapping("/addSubscription")
 	String createSubscription(@RequestBody Subscription subscription) {
 		Optional<Person> optionalP = personDB.findById(subscription.getPerson().getId());
@@ -37,5 +37,5 @@ public class SubscriptionController {
 			return "Failure";
 		}
 	}
-	*/
+	
 }
