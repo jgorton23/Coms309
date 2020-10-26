@@ -25,7 +25,7 @@ public class SubscriptionController {
 	
 	@RequestMapping("/getSubscriptions/{id}")
 	List<Subscription> findAllItemsByID(@PathVariable int id) {
-		List<Integer> i = [1,2];
+		List<Integer> i = Arrays.asList(1,2);
 		return subDB.findAllById(i);
 	}
 	
