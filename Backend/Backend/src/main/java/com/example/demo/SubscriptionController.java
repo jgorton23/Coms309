@@ -26,10 +26,10 @@ public class SubscriptionController {
 	
 	@PostMapping("/addSubscription")
 	String createSubscription(@RequestBody Subscription subscription) {
-		Optional<Person> optionalP = personDB.findById(subscription.getPerson().getId());
+		Optional<Person> optionalP = personDB.findById(subscription.getPerson());
 		if (optionalP.isPresent()) {
 			Person p = optionalP.get();
-			subscription.setPerson(p);
+			subscription.setPosterId(p.getId());
 			subDB.save(subscription);
 			return "Success";
 		}
