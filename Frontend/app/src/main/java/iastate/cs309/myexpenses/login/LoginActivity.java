@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import iastate.cs309.myexpenses.R;
+import iastate.cs309.myexpenses.navbar.BottomNavBarActivity;
 
 public class LoginActivity extends AppCompatActivity {
     EditText mTextUsername;
@@ -31,6 +32,16 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent registerIntent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(registerIntent);
+            }
+        });
+        mButtonLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!mTextUsername.getText().toString().equals("") && !mTextPassword.getText().toString().equals("")){
+                    Intent loginToApp = new Intent(LoginActivity.this, BottomNavBarActivity.class);
+                    startActivity(loginToApp);
+                }
+
             }
         });
 

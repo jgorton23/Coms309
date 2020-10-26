@@ -36,6 +36,19 @@ public class RegisterActivity extends AppCompatActivity {
                 startActivity(registerIntent);
             }
         });
+        mButtonRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!mTextUsername.getText().toString().equals("") &&
+                !mTextPassword.getText().toString().equals("") &&
+                !mTextCnfPassword.getText().toString().equals("")){
+                    if(mTextPassword.getText().toString().equals(mTextCnfPassword.getText().toString())) {
+                        Intent logInScreen = new Intent(RegisterActivity.this, LoginActivity.class);
+                        startActivity(logInScreen);
+                    }
+                }
+            }
+        });
 
     }
 }
