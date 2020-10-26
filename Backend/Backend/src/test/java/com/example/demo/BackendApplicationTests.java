@@ -42,7 +42,7 @@ class BackendApplicationTests {
 	public void testSubscribe() {
 		Person p = new Person();
 		ArrayList<Subscription> sublst = new ArrayList<Subscription>();
-		p.setSubsciptionsBought(sublst);
+		p.setSubscriptionsBought(sublst);
 		Subscription s = new Subscription();
 		s.setNotes("Subscribed");
 		p.subscribe(s);
