@@ -23,11 +23,6 @@ public class SubscriptionController {
 		return subDB.findAll();
 	}
 	
-	@RequestMapping("/getSubscriptions/{id}")
-	List<Subscription> findAllItemsByID(@PathVariable int id) {
-		List<Subscription> l = new List<Subscription>();
-	}
-	
 	@PostMapping("/addSubscription")
 	String createSubscription(@RequestBody Subscription subscription) {
 		Optional<Person> optionalP = personDB.findById(subscription.getPerson());
