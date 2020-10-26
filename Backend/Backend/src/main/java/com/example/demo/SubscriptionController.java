@@ -19,14 +19,8 @@ public class SubscriptionController {
 	
 	
 	@RequestMapping("/getSubscriptions")
-	public List<Subscription> findAllItems() {
+	List<Subscription> findAllItems() {
 		return subDB.findAll();
-	}
-	
-	@RequestMapping("/getSubscriptions/{id}")
-	public List<Subscription> findAllItemsByID(@PathVariable int id) {
-		List<int> i = {1,2};
-		return subDB.findAllById(i);
 	}
 	
 	@PostMapping("/addSubscription")
