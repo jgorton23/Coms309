@@ -23,6 +23,11 @@ public class SubscriptionController {
 		return subDB.findAll();
 	}
 	
+	@RequestMapping("/getSubscriptions/{id}")
+	public List<Subscription> findAllItemsByID(@PathVariable int id) {
+		List<int> i = {1,2};
+		return subDB.findAllById(i);
+	}
 	
 	@PostMapping("/addSubscription")
 	String createSubscription(@RequestBody Subscription subscription) {
