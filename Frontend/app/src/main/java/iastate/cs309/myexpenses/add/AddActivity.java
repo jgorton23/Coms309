@@ -53,6 +53,7 @@ public class AddActivity extends AppCompatActivity {
         List<String> categoryList = new ArrayList<>();
         categoryList.add("");
         categoryList.add("Rent");
+        categoryList.add("Gas");
         categoryList.add("Entertainment");
         categoryList.add("Other");
 
