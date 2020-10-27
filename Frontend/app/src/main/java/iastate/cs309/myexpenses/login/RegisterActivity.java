@@ -9,6 +9,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.math.BigDecimal;
+
 import iastate.cs309.myexpenses.R;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -50,5 +62,36 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+    }
+    private void saveData() throws JSONException {
+        String url = "http://coms-309-ug-02.cs.iastate.edu:8080/person";
+        JSONObject jsonBody = new JSONObject();
+        EditText username = findViewById(R.id.edittext_username);
+        jsonBody.put("amount", username.getText());
+        TextView password = findViewById(R.id.edittext_password);
+        jsonBody.put("password", password.getText());
+        System.out.println(jsonBody);
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.POST, url, jsonBody, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        System.out.println(response.toString());
+                        finish();
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println(error.toString());
+                        // TODO: Handle error
+
+                    }
+                });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        requestQueue.add(jsonObjectRequest);
     }
 }
