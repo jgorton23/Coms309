@@ -14,9 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.mockito.account.Account;
-import com.mockito.account.AccountRepository;
-import com.mockito.account.AccountService;
+import com.example.demo.*;
 
 public class SubControllerTest {
 
@@ -50,7 +48,7 @@ public class SubControllerTest {
 		list.add(s2);
 		list.add(s3);
 
-		when(repo.findAll()).thenReturn(list);
+		when(SubscriptionDatabase.findAll()).thenReturn(list);
 
 		List<Subscription> subList = subDB.findAll();
 
