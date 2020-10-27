@@ -1,15 +1,22 @@
 package iastate.cs309.myexpenses.friends;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import iastate.cs309.myexpenses.Expense;
+import iastate.cs309.myexpenses.ItemDetailActivity;
 import iastate.cs309.myexpenses.R;
 import iastate.cs309.myexpenses.friends.dummy.DummyContent.DummyItem;
 
+import java.text.BreakIterator;
 import java.util.List;
 
 /**
@@ -18,10 +25,14 @@ import java.util.List;
  */
 public class MyFriendsRecyclerViewAdapter extends RecyclerView.Adapter<MyFriendsRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final List<Friend> mValues;
+    private FragmentActivity activity;
+    private boolean mTwoPane;
 
-    public MyFriendsRecyclerViewAdapter(List<DummyItem> items) {
+
+    public MyFriendsRecyclerViewAdapter(List<Friend> items, FragmentActivity activity) {
         mValues = items;
+        this.activity = activity;
     }
 
     @Override
@@ -33,9 +44,12 @@ public class MyFriendsRecyclerViewAdapter extends RecyclerView.Adapter<MyFriends
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).id);
         holder.mContentView.setText(mValues.get(position).content);
+//        holder.mAmountView.setText("$" + mValues.get(position).amount.toString());
+//        holder.mCategory.setText(mValues.get(position).date);
+
+
     }
 
     @Override
@@ -44,21 +58,16 @@ public class MyFriendsRecyclerViewAdapter extends RecyclerView.Adapter<MyFriends
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public DummyItem mItem;
+        final TextView mIdView;
+        final TextView mContentView;
+        final TextView mAmountView;
+        public TextView mCategory;
 
         public ViewHolder(View view) {
             super(view);
-            mView = view;
             mIdView = (TextView) view.findViewById(R.id.item_number);
+            mAmountView = (TextView) view.findViewById(R.id.amount);
             mContentView = (TextView) view.findViewById(R.id.content);
-        }
-
-        @Override
-        public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
         }
     }
 }
