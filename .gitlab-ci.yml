@@ -51,3 +51,15 @@ android-build:
   artifacts:
     paths:
       - Frontend/ExercyzeFrontend/app/build/outputs/
+
+android-test:
+    image: javiersantos/android-ci:latest
+    stage: androidtest
+    before_script:
+      	- export GRADLE_USER_OME='pwd'/.gradle
+        - chmod +x ./Android_test/gradlew
+    tags:
+        - FRONTEND
+    script:
+        - cd Android-test
+        - ./gradlew test

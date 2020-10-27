@@ -26,7 +26,7 @@ public class SubControllerTest {
 		MockitoAnnotations.initMocks(this);
 	}
 
-	// @Test
+	// @Test //commented out bc its from an example and doesnt work, but may use as a framework for another test
 	// public void getAccountByIdTest() {
 	// 	when(repo.getAccountByID(1)).thenReturn(new Account(1, "jDoe", "123456", "jDoe@gmail.com"));
 
