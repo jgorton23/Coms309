@@ -28,16 +28,16 @@ public class SubControllerTest {
 		MockitoAnnotations.initMocks(this);
 	}
 
-	@Test
-	public void getAccountByIdTest() {
-		when(repo.getAccountByID(1)).thenReturn(new Account(1, "jDoe", "123456", "jDoe@gmail.com"));
+	// @Test
+	// public void getAccountByIdTest() {
+	// 	when(repo.getAccountByID(1)).thenReturn(new Account(1, "jDoe", "123456", "jDoe@gmail.com"));
 
-		Account acct = acctService.getAccountByID(1);
+	// 	Account acct = acctService.getAccountByID(1);
 
-		assertEquals("jDoe", acct.getUserID());
-		assertEquals("123456", acct.getPassword());
-		assertEquals("jDoe@gmail.com", acct.getEmail());
-	}
+	// 	assertEquals("jDoe", acct.getUserID());
+	// 	assertEquals("123456", acct.getPassword());
+	// 	assertEquals("jDoe@gmail.com", acct.getEmail());
+	// }
 
 	@Test
 	public void findAllItemsTest() {
@@ -50,12 +50,12 @@ public class SubControllerTest {
 		list.add(s2);
 		list.add(s3);
 
-		when(repo.getAccountList()).thenReturn(list);
+		when(repo.findAll()).thenReturn(list);
 
-		List<Subscription> subList = acctService.getAccountList();
+		List<Subscription> subList = subDB.findAll();
 
 		assertEquals(3, subList.size());
-		verify(repo, times(1)).getAccountList();
+		verify(repo, times(1)).findAll();
 	}
 
 }
