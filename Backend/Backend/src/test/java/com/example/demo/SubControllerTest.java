@@ -48,12 +48,12 @@ public class SubControllerTest {
 		list.add(s2);
 		list.add(s3);
 
-		when(SubscriptionDatabase.findAll()).thenReturn(list);
+		when(SubscriptionDatabase.findAllItems()).thenReturn(list);
 
-		List<Subscription> subList = subDB.findAll();
+		List<Subscription> subList = subDB.findAllItems();
 
 		assertEquals(3, subList.size());
-		verify(repo, times(1)).findAll();
+		verify(subDB, times(1)).findAllItems();
 	}
 
 }
