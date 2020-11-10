@@ -84,4 +84,8 @@ class Person {
 	public void subscribe(Subscription s){
 		subscriptionsBought.add(s);
 	}
+	
+	public void addFriend(Person p) {
+		friends.add(p);
+	}
 }
