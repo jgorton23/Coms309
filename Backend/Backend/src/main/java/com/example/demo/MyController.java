@@ -55,6 +55,14 @@ public class MyController {
 		}
 	}
 	
+	@DeleteMapping("/deleteSubscriptions/{id}")
+	String deleteSubscriptions(@PathVariable Integer id) {
+		Optional<Person> optionalP = db.findById(id);
+		List<Subscription> l = new List<Subscription>()
+		optionalP.setSubscriptionsBought(l);
+		return "deleted " + id;
+	}
+
 	@RequestMapping("/getFriends/{id}")
 	List<Person> getFriends(@PathVariable int id) { 
 		Optional<Person> optionalP = db.findById(id);
