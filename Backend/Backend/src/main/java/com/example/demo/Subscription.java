@@ -44,4 +44,8 @@ public class Subscription {
 		public int getPerson() { return posterId; }
 		public void setPosterId(int i) { posterId = i;}
 		public List<Person> getUsersBought() { return users;}
+		
+		public void addUser(Person p){
+			users.add(p);
+		}
 }

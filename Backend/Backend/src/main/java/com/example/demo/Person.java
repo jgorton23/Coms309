@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -45,6 +47,7 @@ class Person {
 	 joinColumns=@JoinColumn(name="userId"),
 	 inverseJoinColumns=@JoinColumn(name="friendId")
 	)
+	@JsonIgnoreProperties("Person")
 	private List<Person> friends;
 
 	@ManyToMany
@@ -52,6 +55,7 @@ class Person {
 	 joinColumns=@JoinColumn(name="friendId"),
 	 inverseJoinColumns=@JoinColumn(name="userId")
 	)
+	@JsonIgnoreProperties("friendOf")
 	private List<Person> friendOf;
 	
 	public int getId() { return id; }
