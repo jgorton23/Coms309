@@ -56,7 +56,12 @@ public class RegisterActivity extends AppCompatActivity {
                 !mTextCnfPassword.getText().toString().equals("")){
                     if(mTextPassword.getText().toString().equals(mTextCnfPassword.getText().toString())) {
                         Intent logInScreen = new Intent(RegisterActivity.this, LoginActivity.class);
-                        startActivity(logInScreen);
+                        try {
+                            saveData();
+                            startActivity(logInScreen);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
@@ -65,12 +70,20 @@ public class RegisterActivity extends AppCompatActivity {
     }
     private void saveData() throws JSONException {
         String url = "http://coms-309-ug-02.cs.iastate.edu:8080/person";
+
         JSONObject jsonBody = new JSONObject();
+        //TODO: Change id
+        jsonBody.put("id", 5);
         EditText username = findViewById(R.id.edittext_username);
-        jsonBody.put("amount", username.getText());
+        //Default UserLevel = 1
+        jsonBody.put("userLevel", 1);
+        //Default budget = 500
+        jsonBody.put("budget", 500);
+        jsonBody.put("username", username.getText());
         TextView password = findViewById(R.id.edittext_password);
         jsonBody.put("password", password.getText());
-        System.out.println(jsonBody);
+        String[] friends = new String[0];
+        jsonBody.put("friendsOf", friends);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.POST, url, jsonBody, new Response.Listener<JSONObject>() {

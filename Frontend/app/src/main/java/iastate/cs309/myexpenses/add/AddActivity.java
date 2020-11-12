@@ -55,6 +55,8 @@ public class AddActivity extends AppCompatActivity {
         List<String> categoryList = new ArrayList<>();
         categoryList.add("");
         categoryList.add("Rent");
+        categoryList.add("School");
+        categoryList.add("Food");
         categoryList.add("Gas");
         categoryList.add("Entertainment");
         categoryList.add("Other");
@@ -110,6 +112,7 @@ public class AddActivity extends AppCompatActivity {
 //        final TextView textView = rootView.findViewById(R.id.item_detail);
         String url = "http://coms-309-ug-02.cs.iastate.edu:8080/addItem";
         JSONObject jsonBody = new JSONObject();
+
         EditText price = findViewById(R.id.amountPlainText);
         jsonBody.put("price", new BigDecimal(price.getText().toString()));
         String category = categoryBtn.getSelectedItem().toString();
