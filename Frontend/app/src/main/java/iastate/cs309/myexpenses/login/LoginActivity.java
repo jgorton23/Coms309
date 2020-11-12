@@ -32,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText mTextPassword;
     Button mButtonLogin;
     TextView mTextViewRegister;
+    ArrayList<User> list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,10 +55,11 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(!mTextUsername.getText().toString().equals("") && !mTextPassword.getText().toString().equals("")){
 //                    Temporary ArrayList of Users to compare to when logging in
-                    ArrayList<User> tempList = new ArrayList<>();
-                    tempList.add(new User("1", "polina", "123"));
-                    tempList.add(new User("2", "kate", "4567"));
-                    if(validateUser(tempList)){
+//                    ArrayList<User> tempList = new ArrayList<>();
+//                    list.add(new User("1", "polina", "123"));
+//                    list.add(new User("2", "kate", "4567"));
+                    loadData();
+                    if(validateUser(list)){
                         Intent loginToApp = new Intent(LoginActivity.this, BottomNavBarActivity.class);
                         startActivity(loginToApp);
                     }
@@ -77,17 +79,25 @@ public class LoginActivity extends AppCompatActivity {
         return false;
     }
 
-    private ArrayList<User> loadData() {
+
+    private void loadData() {
         String url = "http://coms-309-ug-02.cs.iastate.edu:8080/persons";
-        ArrayList<User> listdata = new ArrayList<>();
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
 
                     @Override
                     public void onResponse(JSONArray response) {
-
+                        ArrayList<User> listdata = new ArrayList<>();
                         if (response != null) {
+                            //while the server doesn't work
+                            if (response.length() == 0) {
+                                User item = new User(
+                                        "1",
+                                        "polina",
+                                        "123");
+                                listdata.add(item);
+                            }
                             for (int i=0;i<response.length();i++){
                                 try {
                                     JSONObject jsonObject = response.getJSONObject(i);
@@ -101,7 +111,8 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             }
                         }
-//                        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(ItemListActivity.this, listdata, mTwoPane));
+//                        recyclerView.setAdapter(new ItemListActivity.SimpleItemRecyclerViewAdapter(ExpenseFragment.this, listdata, false));
+                        setData(listdata);
                     }
                 }, new Response.ErrorListener() {
 
@@ -109,6 +120,15 @@ public class LoginActivity extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         // TODO: Handle error
                         System.out.println(error);
+                        ArrayList<User> listdata = new ArrayList<>();
+                        User item = new User(
+                                "1",
+                                "polina",
+                                "123");
+                        listdata.add(item);
+
+//                        recyclerView.setAdapter(new ItemListActivity.SimpleItemRecyclerViewAdapter(ExpenseFragment.this, listdata, false));
+                        setData(listdata);
                         new AlertDialog.Builder(getApplicationContext())
                                 .setTitle("Error")
                                 .setMessage(error.toString())
@@ -131,6 +151,10 @@ public class LoginActivity extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
         requestQueue.add(jsonArrayRequest);
-        return listdata;
     }
+
+    private void setData(ArrayList<User> listdata) {
+        list = listdata;
+    }
+
 }
