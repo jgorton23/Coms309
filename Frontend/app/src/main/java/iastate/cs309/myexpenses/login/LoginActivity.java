@@ -81,7 +81,11 @@ public class LoginActivity extends AppCompatActivity {
         return false;
     }
 
+    //Read the String from Server
+    private void fillOutArray(){
 
+    }
+    //Takes Jsob Objects from Server and Creates an ArrayList from them
     private void loadData() {
         String url = "http://coms-309-ug-02.cs.iastate.edu:8080/persons";
 
