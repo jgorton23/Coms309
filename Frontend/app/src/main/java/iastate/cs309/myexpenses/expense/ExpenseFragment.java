@@ -39,6 +39,7 @@ import iastate.cs309.myexpenses.Expense;
 import iastate.cs309.myexpenses.ItemListActivity;
 import iastate.cs309.myexpenses.R;
 import iastate.cs309.myexpenses.expense.dummy.DummyContent;
+import iastate.cs309.myexpenses.login.LoginActivity;
 
 /**
  * A fragment representing a list of Items.
@@ -103,7 +104,8 @@ public class ExpenseFragment extends Fragment {
     }
 
     private void loadData(final RecyclerView recyclerView) {
-        String url = "http://coms-309-ug-02.cs.iastate.edu:8080/getItem";
+        int num = LoginActivity.getUserId();
+        String url = "http://coms-309-ug-02.cs.iastate.edu:8080/getItems/" + num;
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONArray>() {

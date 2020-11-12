@@ -37,6 +37,8 @@ import java.util.Collections;
 import java.util.List;
 
 import iastate.cs309.myexpenses.R;
+import iastate.cs309.myexpenses.login.LoginActivity;
+import iastate.cs309.myexpenses.login.User;
 
 public class AddActivity extends AppCompatActivity {
     private  Spinner categoryBtn;
@@ -53,6 +55,8 @@ public class AddActivity extends AppCompatActivity {
         List<String> categoryList = new ArrayList<>();
         categoryList.add("");
         categoryList.add("Rent");
+        categoryList.add("School");
+        categoryList.add("Food");
         categoryList.add("Gas");
         categoryList.add("Entertainment");
         categoryList.add("Other");
@@ -108,6 +112,7 @@ public class AddActivity extends AppCompatActivity {
 //        final TextView textView = rootView.findViewById(R.id.item_detail);
         String url = "http://coms-309-ug-02.cs.iastate.edu:8080/addItem";
         JSONObject jsonBody = new JSONObject();
+
         EditText price = findViewById(R.id.amountPlainText);
         jsonBody.put("price", new BigDecimal(price.getText().toString()));
         String category = categoryBtn.getSelectedItem().toString();
@@ -117,7 +122,7 @@ public class AddActivity extends AppCompatActivity {
         EditText name = findViewById(R.id.namePlainText);
         jsonBody.put("notes", name.getText());
         JSONObject jsonPerson = new JSONObject();
-        jsonPerson.put("id", 2);
+        jsonPerson.put("id", LoginActivity.getUserId());
         jsonBody.put("person", jsonPerson);
         System.out.println(jsonBody);
 

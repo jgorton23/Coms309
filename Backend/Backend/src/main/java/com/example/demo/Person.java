@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "Person")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "itemsBought"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "itemsBought", "subscriptionsBought", "friends", "friendOf"})
 class Person {
 	
 	@Id
@@ -83,5 +83,9 @@ class Person {
 
 	public void subscribe(Subscription s){
 		subscriptionsBought.add(s);
+	}
+	
+	public void addFriend(Person p) {
+		friends.add(p);
 	}
 }

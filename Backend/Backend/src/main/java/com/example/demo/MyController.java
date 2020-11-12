@@ -152,5 +152,32 @@ public class MyController {
 		db.deleteById(id);
 		return "deleted " + id;
 	}
-
+	
+	@PostMapping("/addFriend/{id}")
+	List<Person> addFriend(@RequestBody Person p, @PathVariable int id) {
+		Optional<Person> optionalP = db.findById(id);
+		if (optionalP.isPresent()) {
+			Person p1 = optionalP.get();
+			p1.addFriend(p1);
+			return p1.getFriends();
+		}
+		else {
+			return p.getFriends();
+		}
+	}
+	
+	@PostMapping("/addMutualFriend/{id}")
+	List<Person> addMutualFriend(@RequestBody Person p, @PathVariable int id) {
+		Optional<Person> optionalP = db.findById(id);
+		if (optionalP.isPresent()) {
+			Person p1 = optionalP.get();
+			p1.addFriend(p1);
+			p.addFriend(p1);
+			return p1.getFriends();
+		}
+		else {
+			return p.getFriends();
+		}
+	}
+	
 }
