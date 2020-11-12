@@ -73,7 +73,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         JSONObject jsonBody = new JSONObject();
         //TODO: Change id
-        jsonBody.put("id", 5);
         EditText username = findViewById(R.id.edittext_username);
         //Default UserLevel = 1
         jsonBody.put("userLevel", 1);
@@ -82,8 +81,6 @@ public class RegisterActivity extends AppCompatActivity {
         jsonBody.put("username", username.getText());
         TextView password = findViewById(R.id.edittext_password);
         jsonBody.put("password", password.getText());
-        String[] friends = new String[0];
-        jsonBody.put("friendsOf", friends);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.POST, url, jsonBody, new Response.Listener<JSONObject>() {
