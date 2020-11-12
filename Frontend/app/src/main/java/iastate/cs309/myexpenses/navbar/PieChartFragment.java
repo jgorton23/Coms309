@@ -43,6 +43,7 @@ import java.util.TreeMap;
 
 import iastate.cs309.myexpenses.Expense;
 import iastate.cs309.myexpenses.R;
+import iastate.cs309.myexpenses.login.LoginActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -236,7 +237,9 @@ public class PieChartFragment extends Fragment {
     }
 
     private void loadData() {
-        String url = "http://coms-309-ug-02.cs.iastate.edu:8080/getItem";
+        int num = LoginActivity.getUserId();
+        String url = "http://coms-309-ug-02.cs.iastate.edu:8080/getItems/" + num;
+//        String url = "http://coms-309-ug-02.cs.iastate.edu:8080/getItem";
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONArray>() {

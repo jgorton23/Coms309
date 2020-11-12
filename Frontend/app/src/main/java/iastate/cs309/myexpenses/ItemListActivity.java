@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import iastate.cs309.myexpenses.add.AddActivity;
+import iastate.cs309.myexpenses.login.LoginActivity;
 
 public class ItemListActivity extends AppCompatActivity {
 
@@ -88,7 +89,9 @@ public class ItemListActivity extends AppCompatActivity {
     }
 
     private void loadData(final RecyclerView recyclerView) {
-        String url = "http://coms-309-ug-02.cs.iastate.edu:8080/items";
+        int num = LoginActivity.getUserId();
+        String url = "http://coms-309-ug-02.cs.iastate.edu:8080/getItems/" + num;
+//        String url = "http://coms-309-ug-02.cs.iastate.edu:8080/items";
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONArray>() {

@@ -56,5 +56,4 @@ public class SubscriptionController {
 			return "Failure";
 		}
 	}
-	
 }

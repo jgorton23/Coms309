@@ -32,6 +32,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import iastate.cs309.myexpenses.login.LoginActivity;
+
 import static java.time.DayOfWeek.SUNDAY;
 import static java.time.temporal.ChronoUnit.DAYS;
 import static java.time.temporal.TemporalAdjusters.previous;
@@ -201,7 +203,8 @@ public class BarGraphFragment extends Fragment implements SeekBar.OnSeekBarChang
     }
 
     private void loadData() {
-        String url = "http://coms-309-ug-02.cs.iastate.edu:8080/getItem";
+        int num = LoginActivity.getUserId();
+        String url = "http://coms-309-ug-02.cs.iastate.edu:8080/getItems/" + num;
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
