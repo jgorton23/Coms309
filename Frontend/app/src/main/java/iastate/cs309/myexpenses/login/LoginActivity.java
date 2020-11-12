@@ -28,11 +28,12 @@ import iastate.cs309.myexpenses.R;
 import iastate.cs309.myexpenses.navbar.BottomNavBarActivity;
 
 public class LoginActivity extends AppCompatActivity {
-    EditText mTextUsername;
-    EditText mTextPassword;
+    private  static EditText mTextUsername;
+    private static EditText mTextPassword;
     Button mButtonLogin;
     TextView mTextViewRegister;
     ArrayList<User> list = new ArrayList<>();
+    private static int userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +74,7 @@ public class LoginActivity extends AppCompatActivity {
         for (int i = 0; i < list.size(); i++){
             if(list.get(i).username.equals(mTextUsername.getText().toString())
             && list.get(i).password.equals(mTextPassword.getText().toString())) {
+                userId = Integer. parseInt(list.get(i).id);
                 return true;
             }
         }
@@ -155,6 +157,18 @@ public class LoginActivity extends AppCompatActivity {
 
     private void setData(ArrayList<User> listdata) {
         list = listdata;
+    }
+
+    public static int getUserId(){
+        return userId;
+    }
+
+    public static String getUserUsername(){
+       return mTextUsername.getText().toString();
+    }
+
+    public static String getUserPassword(){
+        return mTextPassword.getText().toString();
     }
 
 }
