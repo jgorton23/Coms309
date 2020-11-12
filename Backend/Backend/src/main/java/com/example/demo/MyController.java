@@ -214,7 +214,7 @@ public class MyController {
 	}
 	
 	@PostMapping("/addMutualFriend/{id1}/{id2}")
-	List<Person> addMutualFriend(@PathVariable int id1, @PathVariable int id2) {
+	String addMutualFriend(@PathVariable int id1, @PathVariable int id2) {
 		Optional<Person> optionalP1 = db.findById(id1);
 		Optional<Person> optionalP2 = db.findById(id2);
 		if (optionalP1.isPresent() && optionalP2.isPresent()) {
@@ -224,10 +224,10 @@ public class MyController {
 			p2.addFriend(p1);
 			db.save(p1);
 			db.save(p2);
-			return p1.getFriends();
+			return "success";
 		}
 		else {
-			return Collections.emptyList();
+			return "failure";
 		}
 	}
 	
