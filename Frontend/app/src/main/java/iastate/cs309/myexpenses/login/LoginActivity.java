@@ -83,8 +83,11 @@ public class LoginActivity extends AppCompatActivity {
 
     //Read the String from Server
     private void fillOutArray(){
-
+        //Look at loadData() --> the method pulls data from the server
+        //Just add a User item = new User() with the username password and id
+        //add the item to the ArrayList<User> list (already created at the top)
     }
+
     //Takes Jsob Objects from Server and Creates an ArrayList from them
     private void loadData() {
         String url = "http://coms-309-ug-02.cs.iastate.edu:8080/persons";
