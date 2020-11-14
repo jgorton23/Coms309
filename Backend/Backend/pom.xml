@@ -84,6 +84,10 @@
 	    <version>3.0.0</version>
 	</dependency>
 
+	<dependency>
+		<groupId>ord.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-websocket</artifactId>
+	</dependency>
 	</dependencies>
 
 	<build>
