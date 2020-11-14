@@ -50,4 +50,14 @@ class BackendApplicationTests {
 		assertThat(p.getSubscriptionsBought() == s);
 	}
 	
+	@Test
+	public void testFriend() {
+		Person p = new Person();
+		ArrayList<Person> friends = new ArrayList<Person>();
+		p.setFriends(friends);
+		Person friend = new Person();
+		p.addFriend(friend);
+		
+		assertThat(friend == p.getFriends());
+	}
 }

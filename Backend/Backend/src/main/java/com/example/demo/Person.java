@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Table(name = "Person")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "itemsBought", "subscriptionsBought", "friends", "friendOf"})
 class Person {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column
@@ -73,6 +73,8 @@ class Person {
 	public void setSubscriptionsBought(List<Subscription> subs) {subscriptionsBought = subs;}
 	public List<Person> getFriends() { return friends; }
 	public List<Person> getFriendsOf() { return friendOf; }
+	public void setFriends(List<Person> f) { friends = f; }
+	public void setFriendsOf(List<Person> f) { friendOf = f; }
 	public int getBudget() { return budget; }
 	public void setBudget(int b) { budget = b; }
 	
