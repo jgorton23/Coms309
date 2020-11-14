@@ -5,8 +5,13 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import net.minidev.json.annotate.JsonIgnore;
+
 @Entity
 @Table(name = "subscriptions")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "users"})
 public class Subscription {
 
 		@Id
@@ -30,6 +35,7 @@ public class Subscription {
 		private int posterId;
 		
 		@ManyToMany(mappedBy = "subscriptionsBought")
+		@JsonIgnore
 		List<Person> users;
 		
 		public int getId() { return id; }

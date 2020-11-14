@@ -22,9 +22,9 @@ public class ItemController {
 	@Autowired
 	ItemDatabase ItemDB;
 	
-	
+	/*
 	@RequestMapping("/getItem")
-	public ResponseEntity<String> findAllItems() {
+	public ResponseEntity<String> findAllItems() { //YOU MERKED THOIS 
 		JSONObject main = new JSONObject();
 		List<ItemAdd> items = ItemDB.findAll();
 		for (int i = 0; i < items.size(); i++) {
@@ -49,6 +49,11 @@ public class ItemController {
 			}
 		}
 		return new ResponseEntity<String>(main.toString(), HttpStatus.OK);
+	} */
+	
+	@RequestMapping("/getItem")
+	List<ItemAdd> findAllSubscriptions() {
+		return ItemDB.findAll();
 	}
 	
 	@PostMapping("/addItem")

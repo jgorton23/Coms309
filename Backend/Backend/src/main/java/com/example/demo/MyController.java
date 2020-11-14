@@ -21,6 +21,7 @@ public class MyController {
 	@Autowired
 	SubscriptionDatabase SubDB;
 	
+	/*
 	@RequestMapping("/persons")
 	ResponseEntity<String> hello() {
 		JSONObject main = new JSONObject();
@@ -40,6 +41,7 @@ public class MyController {
 		}
 		return new ResponseEntity<String>(main.toString(), HttpStatus.OK);
 	}
+	*/
 
 	@PostMapping("/person")
 	Person createPerson(@RequestBody Person p) {
@@ -53,7 +55,19 @@ public class MyController {
 	}
 	
 	@RequestMapping("/getItems/{id}")
-	ResponseEntity<String> getItems(@PathVariable int id) {
+	List<ItemAdd> getItems(@PathVariable int id) {
+		Optional<Person> optionalP = db.findById(id);
+		if (optionalP.isPresent()) {
+			Person p = optionalP.get();
+			return p.getItemsBought();
+		}
+		else {
+			return Collections.emptyList();
+		}
+	}
+	/*
+	@RequestMapping("/getItems/{id}")
+	ResponseEntity<String> getItems(@PathVariable int id) { //get items.db.getAll or some stuff I got it. 
 		Optional<Person> optionalP = db.findById(id);
 		if (optionalP.isPresent()) {
 			Person p = optionalP.get();
@@ -85,9 +99,22 @@ public class MyController {
 			return new ResponseEntity<String>("failedReturn", HttpStatus.OK);
 		}
 	}
+	*/
 	
 	@RequestMapping("/getSubscriptions/{id}")
-	ResponseEntity<String> getSubscriptions(@PathVariable int id) {
+	List<Subscription> getsubscriptions(@PathVariable int id) {
+		Optional<Person> optionalP = db.findById(id);
+		if (optionalP.isPresent()) {
+			Person p = optionalP.get();
+			return p.getSubscriptionsBought();
+		}
+		else {
+			return Collections.emptyList();
+		}
+	}
+	/*
+	@RequestMapping("/getSubscriptions/{id}")
+	ResponseEntity<String> getSubscriptions(@PathVariable int id) { // OT NE THI>OKE THAT THIS IS ONE TF THE THINGS YOUR BROKE>wq
 		JSONObject main = new JSONObject();
 		List<Subscription> subscriptions = SubDB.findAll();
 		Optional<Person> subPerson = db.findById(id);
@@ -113,6 +140,7 @@ public class MyController {
 		}
 		return new ResponseEntity<String>("failedReturn", HttpStatus.OK);
 	}
+	*/
 	
 	// @DeleteMapping("/deleteSubscriptions/{id}")
 	// String deleteSubscriptions(@PathVariable Integer id) {
@@ -200,16 +228,19 @@ public class MyController {
 		return "deleted " + id;
 	}
 	
-	@PostMapping("/addFriend/{id}")
-	List<Person> addFriend(@RequestBody Person p, @PathVariable int id) {
-		Optional<Person> optionalP = db.findById(id);
-		if (optionalP.isPresent()) {
+	@PostMapping("/addFriend/{id1}/{id2}")
+	String addFriend(@PathVariable int id1, @PathVariable int id2) {
+		Optional<Person> optionalP = db.findById(id1);
+		Optional<Person> optionalP2 = db.findById(id2);
+		if (optionalP.isPresent() && optionalP2.isPresent()) {
 			Person p1 = optionalP.get();
-			p1.addFriend(p1);
-			return p1.getFriends();
+			Person p2 = optionalP2.get();
+			p1.addFriend(p2);
+			db.save(p1);
+			return "success";
 		}
 		else {
-			return p.getFriends();
+			return "failure";
 		}
 	}
 	
@@ -231,6 +262,18 @@ public class MyController {
 		}
 	}
 	
+	@RequestMapping("/getFriends/{id}")
+	List<Person> getFriends(@PathVariable int id) {
+		Optional<Person> optionalP = db.findById(id);
+		if (optionalP.isPresent()) {
+			Person p = optionalP.get();
+			return p.getFriends();
+		}
+		else {
+			return Collections.emptyList();
+		}
+	}
+	/*
 	@RequestMapping("/getFriends/{id}")
 	ResponseEntity<String> getFriends(@PathVariable int id) { 
 		Optional<Person> optionalP = db.findById(id);
@@ -256,6 +299,7 @@ public class MyController {
 			return new ResponseEntity<String>("failedReturn", HttpStatus.OK);
 		}
 	}
+	*/
 
 	@PostMapping("/changeBudget/{id}")
 	int changeBudget(@RequestBody Person p, @PathVariable int id) {

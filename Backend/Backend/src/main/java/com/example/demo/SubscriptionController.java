@@ -22,9 +22,14 @@ public class SubscriptionController {
 	@Autowired
 	SubscriptionDatabase subDB;
 	
-	
 	@RequestMapping("/getSubscriptions")
-	ResponseEntity<String> findAllSubscriptions() {
+	List<Subscription> findAllSubscriptions() {
+		return subDB.findAll();
+	}
+	
+	/*
+	@RequestMapping("/getSubscriptions")
+	ResponseEntity<String> findAllSubscriptions() { //BRUHHHHHH
 		JSONObject main = new JSONObject();
 		List<Subscription> subscriptions = subDB.findAll();
 		for (int i = 0; i < subscriptions.size(); i++) {
@@ -42,6 +47,7 @@ public class SubscriptionController {
 		}
 		return new ResponseEntity<String>(main.toString(), HttpStatus.OK);
 	}
+	*/
 	
 	@PostMapping("/addSubscription")
 	String createSubscription(@RequestBody Subscription subscription) {
