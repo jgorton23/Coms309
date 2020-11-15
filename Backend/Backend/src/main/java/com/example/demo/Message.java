@@ -50,5 +50,13 @@ public class Message {
         this.userName = userName;
         this.reciever = reciever;
 		this.content = content;
-	}
+    }
+    
+    public String getSender(){
+        return sender;
+    }
+
+    public String getReciever(){
+        return reciever;
+    }
 }

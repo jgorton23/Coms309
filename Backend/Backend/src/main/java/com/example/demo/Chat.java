@@ -22,7 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 @Controller      // this is needed for this to be an endpoint to springboot
-@ServerEndpoint(value = "/chat/{username}")  // this is Websocket url
+@ServerEndpoint(value = "/chat/{sender}/{reciever}")  // this is Websocket url
 public class ChatSocket {
 
   // cannot autowire static directly (instead we do it by the below
@@ -42,27 +42,32 @@ public class ChatSocket {
 	}
 
 	// Store all socket session and their corresponding username.
-	private static Map<Session, String> sessionUsernameMap = new Hashtable<>();
-	private static Map<String, Session> usernameSessionMap = new Hashtable<>();
+	// private static Map<Session, String> sessionUsernameMap = new Hashtable<>();
+    // private static Map<String, Session> usernameSessionMap = new Hashtable<>();
+    private String sender;
+    private String reciever;
 
 	private final Logger logger = LoggerFactory.getLogger(ChatSocket.class);
 
 	@OnOpen
-	public void onOpen(Session session, @PathParam("username") String username) 
+	public void onOpen(Session session, @PathParam("sender") String sender, @PathParam("reciever") String reciever) 
       throws IOException {
 
 		logger.info("Entered into Open");
 
     // store connecting user information
-		sessionUsernameMap.put(session, username);
-		usernameSessionMap.put(username, session);
+		// sessionUsernameMap.put(session, username);
+        // usernameSessionMap.put(username, session);
+        this.sender = sender;
+        this.receiver = receiver;
 
 		//Send chat history to the newly connected user
-		sendMessage(username, getChatHistory());
+		sendMessage(sender, getChatHistory(sender, reciever));
 		
     // broadcast that new user joined
 		String message = "User:" + username + " has Joined the Chat";
-		broadcast(message);
+        sendMessage(sender, message);
+        sendMessage(receiver, message);
 	}
 
 
@@ -71,20 +76,21 @@ public class ChatSocket {
 
 		// Handle new messages
 		logger.info("Entered into Message: Got Message:" + message);
-		String username = sessionUsernameMap.get(session);
+        String username = sender;//sessionUsernameMap.get(session);
+        String destUsername = reciever;
 
-    // Direct message to a user using the format "@username <message>"
-		if (message.startsWith("@")) {
-			String destUsername = message.split(" ")[0].substring(1); 
+        // Direct message to a user using the format "@username <message>"
+		// if (message.startsWith("@")) {
+		// 	String destUsername = message.split(" ")[0].substring(1); 
 
-      // send the message to the sender and receiver
+            // send the message to the sender and receiver
 			sendMessage(destUsername, "[DM] " + username + ": " + message);
 			sendMessage(username, "[DM] " + username + ": " + message);
 
-		} 
-    else { // broadcast
-			broadcast(username + ": " + message);
-		}
+		//} 
+        // else { // broadcast
+		// 	broadcast(username + ": " + message);
+		// }
 
 		// Saving chat history to repository
 		msgDB.save(new Message(username, message));
@@ -95,14 +101,14 @@ public class ChatSocket {
 	public void onClose(Session session) throws IOException {
 		logger.info("Entered into Close");
 
-    // remove the user connection information
-		String username = sessionUsernameMap.get(session);
-		sessionUsernameMap.remove(session);
-		usernameSessionMap.remove(username);
+    // // remove the user connection information // idk what should happen on close but not this
+	// 	String username = sessionUsernameMap.get(session);
+	// 	sessionUsernameMap.remove(session);
+	// 	usernameSessionMap.remove(username);
 
-    // broadcase that the user disconnected
-		String message = username + " disconnected";
-		broadcast(message);
+    // // broadcase that the user disconnected
+	// 	String message = username + " disconnected";
+	// 	broadcast(message);
 	}
 
 
@@ -114,9 +120,9 @@ public class ChatSocket {
 	}
 
 
-	private void sendMessage(String username, String message) {
+	private void sendMessage(String reciever, String message) {
 		try {
-			usernameSessionMap.get(username).getBasicRemote().sendText(message);
+			reciever.getBasicRemote().sendText(message);
 		} 
     catch (IOException e) {
 			logger.info("Exception: " + e.getMessage().toString());
@@ -143,8 +149,14 @@ public class ChatSocket {
 	
 
   // Gets the Chat history from the repository
-	private String getChatHistory() {
-		List<Message> messages = msgDB.findAll();
+	private String getChatHistory(String sender, String reciever) {
+        List<Message> l = msgDB.findAll();
+        List<Message> messages = new ArrayList<>()
+        for(int i = 0; i < l.size(); i++){
+            if(l.get(i).getSender() == sender && l.get(i).getReciever() == reciever){
+                messages.add(l.get(i));
+            }
+        }
     
     // convert the list to a string
 		StringBuilder sb = new StringBuilder();
