@@ -156,7 +156,7 @@ public class Chat {
         List<Message> l = msgDB.findAll();
         List<Message> messages = new ArrayList<>();
         for(int i = 0; i < l.size(); i++){
-            if(l.get(i).getSender() == sender && l.get(i).getreceiver() == receiver){
+            if(l.get(i).getSender() == sender && l.get(i).getReceiver() == receiver){
                 messages.add(l.get(i));
             }
         }
