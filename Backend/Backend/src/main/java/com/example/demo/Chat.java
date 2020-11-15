@@ -151,7 +151,7 @@ public class ChatSocket {
   // Gets the Chat history from the repository
 	private String getChatHistory(String sender, String reciever) {
         List<Message> l = msgDB.findAll();
-        List<Message> messages = new ArrayList<>()
+        List<Message> messages = new ArrayList<>();
         for(int i = 0; i < l.size(); i++){
             if(l.get(i).getSender() == sender && l.get(i).getReciever() == reciever){
                 messages.add(l.get(i));
