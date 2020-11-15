@@ -23,7 +23,7 @@ import org.springframework.stereotype.Controller;
 
 @Controller      // this is needed for this to be an endpoint to springboot
 @ServerEndpoint(value = "/chat/{sender}/{reciever}")  // this is Websocket url
-public class ChatSocket {
+public class Chat {
 
   // cannot autowire static directly (instead we do it by the below
   // method
