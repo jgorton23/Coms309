@@ -69,6 +69,8 @@ class Person {
 	public List<ItemAdd> getItemsBought() { return itemsBought; }
 	public void setItemsBought(List<ItemAdd> items) { itemsBought = items; }
 	public String toString() { return username; }
+	
+	@JsonIgnore
 	public List<Subscription> getSubscriptionsBought() { return subscriptionsBought;}
 	public void setSubscriptionsBought(List<Subscription> subs) {subscriptionsBought = subs;}
 	
