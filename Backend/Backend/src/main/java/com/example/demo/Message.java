@@ -56,6 +56,6 @@ public class Message {
     }
     
     public String getSender(){  return userName;  }
-    public String getreceiver(){  return receiver;  }
+    public String getReceiver(){  return receiver;  }
     public String getContent(){  return content;  }
 }
