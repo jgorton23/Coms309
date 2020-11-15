@@ -123,7 +123,7 @@ public class Chat {
 	}
 
 
-	private void sendMessage(String receiver, String message) {
+	private void sendMessage(Session session, String receiver, String message) {
 		try {
 			session.getBasicRemote().sendText(message);
 		} 
