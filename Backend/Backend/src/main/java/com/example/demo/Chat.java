@@ -125,7 +125,7 @@ public class Chat {
 
 	private void sendMessage(String receiver, String message) {
 		try {
-			usernameSessionMap.get(reciever).getBasicRemote().sendText(message);
+			usernameSessionMap.get(receiver).getBasicRemote().sendText(message);
 		} 
     catch (IOException e) {
 			logger.info("Exception: " + e.getMessage().toString());
