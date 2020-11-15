@@ -93,7 +93,7 @@ public class ChatSocket {
 		// }
 
 		// Saving chat history to repository
-		msgDB.save(new Message(username, message));
+		msgDB.save(new Message(username, destUsername, message));
 	}
 
 
