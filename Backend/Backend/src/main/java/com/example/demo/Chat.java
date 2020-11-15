@@ -45,8 +45,8 @@ public class Chat {
 	}
 
 	// Store all socket session and their corresponding username.
-	// private static Map<Session, String> sessionUsernameMap = new Hashtable<>();
-    // private static Map<String, Session> usernameSessionMap = new Hashtable<>();
+	private static Map<Session, String> sessionUsernameMap = new Hashtable<>();
+    private static Map<String, Session> usernameSessionMap = new Hashtable<>();
     private String sender;
     private String receiver;
 
@@ -59,8 +59,8 @@ public class Chat {
 		logger.info("Entered into Open");
 
     // store connecting user information
-		// sessionUsernameMap.put(session, username);
-        // usernameSessionMap.put(username, session);
+		sessionUsernameMap.put(session, sender);
+        usernameSessionMap.put(sender, session);
         this.sender = sender;
         this.receiver = receiver;
 
@@ -105,9 +105,9 @@ public class Chat {
 		logger.info("Entered into Close");
 
     // // remove the user connection information // idk what should happen on close but not this
-	// 	String username = sessionUsernameMap.get(session);
-	// 	sessionUsernameMap.remove(session);
-	// 	usernameSessionMap.remove(username);
+		String username = sessionUsernameMap.get(session);
+		sessionUsernameMap.remove(session);
+		usernameSessionMap.remove(username);
 
     // // broadcase that the user disconnected
 	// 	String message = username + " disconnected";
@@ -123,9 +123,9 @@ public class Chat {
 	}
 
 
-	private void sendMessage(Session session, String receiver, String message) {
+	private void sendMessage(String receiver, String message) {
 		try {
-			session.getBasicRemote().sendText(message);
+			usernameSessionMap.get(reciever).getBasicRemote().sendText(message);
 		} 
     catch (IOException e) {
 			logger.info("Exception: " + e.getMessage().toString());
