@@ -58,7 +58,7 @@ public class ChatSocket {
 		usernameSessionMap.put(username, session);
 
 		//Send chat history to the newly connected user
-		sendMessageToPArticularUser(username, getChatHistory());
+		sendMessage(username, getChatHistory());
 		
     // broadcast that new user joined
 		String message = "User:" + username + " has Joined the Chat";
@@ -78,8 +78,8 @@ public class ChatSocket {
 			String destUsername = message.split(" ")[0].substring(1); 
 
       // send the message to the sender and receiver
-			sendMessageToPArticularUser(destUsername, "[DM] " + username + ": " + message);
-			sendMessageToPArticularUser(username, "[DM] " + username + ": " + message);
+			sendMessage(destUsername, "[DM] " + username + ": " + message);
+			sendMessage(username, "[DM] " + username + ": " + message);
 
 		} 
     else { // broadcast
@@ -114,7 +114,7 @@ public class ChatSocket {
 	}
 
 
-	private void sendMessageToPArticularUser(String username, String message) {
+	private void sendMessage(String username, String message) {
 		try {
 			usernameSessionMap.get(username).getBasicRemote().sendText(message);
 		} 
@@ -125,19 +125,21 @@ public class ChatSocket {
 	}
 
 
-	private void broadcast(String message) {
-		sessionUsernameMap.forEach((session, username) -> {
-			try {
-				session.getBasicRemote().sendText(message);
-			} 
-      catch (IOException e) {
-				logger.info("Exception: " + e.getMessage().toString());
-				e.printStackTrace();
-			}
+    // useless - just from tutorial saved for now in case I want to reference while writing something useful
+    //
+	// private void broadcast(String message) {
+	// 	sessionUsernameMap.forEach((session, username) -> {
+	// 		try {
+	// 			session.getBasicRemote().sendText(message);
+	// 		} 
+    //   catch (IOException e) {
+	// 			logger.info("Exception: " + e.getMessage().toString());
+	// 			e.printStackTrace();
+	// 		}
 
-		});
+	// 	});
 
-	}
+	// }
 	
 
   // Gets the Chat history from the repository

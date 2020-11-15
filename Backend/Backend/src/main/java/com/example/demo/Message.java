@@ -28,6 +28,11 @@ public class Message {
     @Size(max = 100)
     @Column
     private String userName;
+
+    @NotNull
+    @Size(max = 100)
+    @Column
+    private String reciever;
 	
 	@NotNull
     @Lob
@@ -41,8 +46,9 @@ public class Message {
 	
 	public Message() {};
 	
-	public Message(String userName, String content) {
-		this.userName = userName;
+	public Message(String userName, String reciever, String content) {
+        this.userName = userName;
+        this.reciever = reciever;
 		this.content = content;
 	}
 }
