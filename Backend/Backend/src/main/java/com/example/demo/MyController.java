@@ -21,6 +21,11 @@ public class MyController {
 	@Autowired
 	SubscriptionDatabase SubDB;
 	
+	@RequestMapping("/persons")
+	List<Person> getAllPeople() {
+		return db.findAll();
+	}
+		
 	/*
 	@RequestMapping("/persons")
 	ResponseEntity<String> hello() {

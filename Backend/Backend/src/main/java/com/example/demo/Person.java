@@ -49,7 +49,7 @@ class Person {
 	 inverseJoinColumns=@JoinColumn(name="friendId")
 	)
 	@JsonIgnoreProperties("Person")
-	@JsonIgnore
+	@JsonIgnore(true)
 	private List<Person> friends;
 
 	@ManyToMany
@@ -58,7 +58,7 @@ class Person {
 	 inverseJoinColumns=@JoinColumn(name="userId")
 	)
 	@JsonIgnoreProperties("friendOf")
-	@JsonIgnore
+	@JsonIgnore(true)
 	private List<Person> friendOf;
 	
 	public int getId() { return id; }
