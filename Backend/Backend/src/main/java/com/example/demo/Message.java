@@ -1,18 +1,21 @@
 package com.example.demo;
 
-import java.util.Date;
+import javax.persistence.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+
+//import java.util.Date;
+
+// import javax.persistence.Column;
+// import javax.persistence.Entity;
+// import javax.persistence.GeneratedValue;
+// import javax.persistence.GenerationType;
+// import javax.persistence.Id;
+// import javax.persistence.Lob;
+// import javax.persistence.Table;
+// import javax.persistence.Temporal;
+// import javax.persistence.TemporalType;
+// //import javax.validation.constraints.NotNull;
+// import javax.validation.constraints.Size;
 
 import lombok.Data;
 
@@ -24,24 +27,24 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 	
-	@NotNull
+	//@NotNull
     @Size(max = 100)
     @Column
     private String userName;
 
-    @NotNull
+    //@NotNull
     @Size(max = 100)
     @Column
     private String reciever;
 	
-	@NotNull
-    @Lob
+	//@NotNull
+    @Column
     private String content;
 	
-	@NotNull
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "sent")
-    private Date sent = new Date();
+	//@NotNull
+    // @Temporal(TemporalType.TIMESTAMP)
+    // @Column(name = "sent")
+    // private Date sent = new Date();
 	
 	
 	public Message() {};
@@ -52,11 +55,6 @@ public class Message {
 		this.content = content;
     }
     
-    public String getSender(){
-        return sender;
-    }
-
-    public String getReciever(){
-        return reciever;
-    }
+    public String getSender(){  return sender;  }
+    public String getReciever(){  return reciever;  }
 }
