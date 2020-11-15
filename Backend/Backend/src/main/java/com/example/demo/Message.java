@@ -28,14 +28,14 @@ public class Message {
     private Long id;
 	
 	//@NotNull
-    @Size(max = 100)
+    //@Size(max = 100)
     @Column
     private String userName;
 
     //@NotNull
     //@Size(max = 100)
     @Column
-    private String reciever;
+    private String receiver;
 	
 	//@NotNull
     @Column
@@ -49,13 +49,13 @@ public class Message {
 	
 	public Message() {};
 	
-	public Message(String userName, String reciever, String content) {
+	public Message(String userName, String receiver, String content) {
         this.userName = userName;
-        this.reciever = reciever;
+        this.receiver = receiver;
 		this.content = content;
     }
     
     public String getSender(){  return userName;  }
-    public String getReciever(){  return reciever;  }
+    public String getreceiver(){  return receiver;  }
     public String getContent(){  return content;  }
 }
