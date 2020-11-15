@@ -25,7 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 @Controller      // this is needed for this to be an endpoint to springboot
-@ServerEndpoint(value = "/chat/{sender}/{reciever}")  // this is Websocket url
+@ServerEndpoint(value = "/chat/{sender}/{receiver}")  // this is Websocket url
 public class Chat {
 
   // cannot autowire static directly (instead we do it by the below
@@ -48,12 +48,12 @@ public class Chat {
 	// private static Map<Session, String> sessionUsernameMap = new Hashtable<>();
     // private static Map<String, Session> usernameSessionMap = new Hashtable<>();
     private String sender;
-    private String reciever;
+    private String receiver;
 
-	private final Logger logger = LoggerFactory.getLogger(ChatSocket.class);
+	private final Logger logger = LoggerFactory.getLogger(Chat.class);
 
 	@OnOpen
-	public void onOpen(Session session, @PathParam("sender") String sender, @PathParam("reciever") String reciever) 
+	public void onOpen(Session session, @PathParam("sender") String sender, @PathParam("receiver") String receiver) 
       throws IOException {
 
 		logger.info("Entered into Open");
@@ -65,10 +65,10 @@ public class Chat {
         this.receiver = receiver;
 
 		//Send chat history to the newly connected user
-		sendMessage(sender, getChatHistory(sender, reciever));
+		sendMessage(sender, getChatHistory(sender, receiver));
 		
     // broadcast that new user joined
-		String message = "User:" + username + " has Joined the Chat";
+		String message = "User:" + sender + " has Joined the Chat";
         sendMessage(sender, message);
         sendMessage(receiver, message);
 	}
@@ -80,7 +80,7 @@ public class Chat {
 		// Handle new messages
 		logger.info("Entered into Message: Got Message:" + message);
         String username = sender;//sessionUsernameMap.get(session);
-        String destUsername = reciever;
+        String destUsername = receiver;
 
         // Direct message to a user using the format "@username <message>"
 		// if (message.startsWith("@")) {
@@ -123,9 +123,9 @@ public class Chat {
 	}
 
 
-	private void sendMessage(String reciever, String message) {
+	private void sendMessage(String receiver, String message) {
 		try {
-			reciever.getBasicRemote().sendText(message);
+			receiver.getBasicRemote().sendText(message);
 		} 
     catch (IOException e) {
 			logger.info("Exception: " + e.getMessage().toString());
@@ -152,11 +152,11 @@ public class Chat {
 	
 
   // Gets the Chat history from the repository
-	private String getChatHistory(String sender, String reciever) {
+	private String getChatHistory(String sender, String receiver) {
         List<Message> l = msgDB.findAll();
         List<Message> messages = new ArrayList<>();
         for(int i = 0; i < l.size(); i++){
-            if(l.get(i).getSender() == sender && l.get(i).getReciever() == reciever){
+            if(l.get(i).getSender() == sender && l.get(i).getreceiver() == receiver){
                 messages.add(l.get(i));
             }
         }
@@ -165,7 +165,7 @@ public class Chat {
 		StringBuilder sb = new StringBuilder();
 		if(messages != null && messages.size() != 0) {
 			for (Message message : messages) {
-				sb.append(message.getUserName() + ": " + message.getContent() + "\n");
+				sb.append(message.getSender() + ": " + message.getContent() + "\n");
 			}
 		}
 		return sb.toString();

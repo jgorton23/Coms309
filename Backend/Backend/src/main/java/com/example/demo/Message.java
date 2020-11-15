@@ -33,7 +33,7 @@ public class Message {
     private String userName;
 
     //@NotNull
-    @Size(max = 100)
+    //@Size(max = 100)
     @Column
     private String reciever;
 	
@@ -55,6 +55,7 @@ public class Message {
 		this.content = content;
     }
     
-    public String getSender(){  return sender;  }
+    public String getSender(){  return userName;  }
     public String getReciever(){  return reciever;  }
+    public String getContent(){  return content;  }
 }
