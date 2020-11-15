@@ -5,7 +5,7 @@ import java.util.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.webEnvironment.RANDOM_PORT)
 class BackendApplicationTests {
 
 	@Test
