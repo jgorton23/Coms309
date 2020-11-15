@@ -71,8 +71,13 @@ class Person {
 	public String toString() { return username; }
 	public List<Subscription> getSubscriptionsBought() { return subscriptionsBought;}
 	public void setSubscriptionsBought(List<Subscription> subs) {subscriptionsBought = subs;}
+	
+	@JsonIgnore
 	public List<Person> getFriends() { return friends; }
+	
+	@JsonIgnore
 	public List<Person> getFriendsOf() { return friendOf; }
+	
 	public void setFriends(List<Person> f) { friends = f; }
 	public void setFriendsOf(List<Person> f) { friendOf = f; }
 	public int getBudget() { return budget; }
