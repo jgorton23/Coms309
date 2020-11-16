@@ -46,7 +46,7 @@ public class MyFriendsRecyclerViewAdapter extends RecyclerView.Adapter<MyFriends
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mIdView.setText(mValues.get(position).id);
         holder.mContentView.setText(mValues.get(position).content);
-//        holder.mAmountView.setText("$" + mValues.get(position).amount.toString());
+        holder.mAmountView.setText("$" + mValues.get(position).budget.toString());
 
 
     }
@@ -59,11 +59,13 @@ public class MyFriendsRecyclerViewAdapter extends RecyclerView.Adapter<MyFriends
     public class ViewHolder extends RecyclerView.ViewHolder {
         final TextView mIdView;
         final TextView mContentView;
+        public TextView mAmountView;
 
         public ViewHolder(View view) {
             super(view);
             mIdView = (TextView) view.findViewById(R.id.item_number);
             mContentView = (TextView) view.findViewById(R.id.content);
+            mAmountView = (TextView) view.findViewById(R.id.budget);
         }
     }
 }
