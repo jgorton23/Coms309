@@ -34,6 +34,7 @@ import iastate.cs309.myexpenses.Expense;
 import iastate.cs309.myexpenses.R;
 import iastate.cs309.myexpenses.expense.MyExpenseRecyclerViewAdapter;
 import iastate.cs309.myexpenses.friends.dummy.DummyContent;
+import iastate.cs309.myexpenses.login.LoginActivity;
 
 /**
  * A fragment representing a list of Items.
@@ -91,7 +92,7 @@ public class FriendsFragment extends Fragment {
         return view;
     }
     private void loadData(final RecyclerView recyclerView) {
-        String url = "http://coms-309-ug-02.cs.iastate.edu:8080/getFriend";
+        String url = "http://coms-309-ug-02.cs.iastate.edu:8080/getFriends/" + LoginActivity.getUserId();
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
@@ -105,8 +106,7 @@ public class FriendsFragment extends Fragment {
                                 Friend item = new Friend(
                                         "1",
                                         "kate",
-                                        new BigDecimal(10),
-                                        "2020-9-9");
+                                        "500");
                                 listdata.add(item);
                             }
                             for (int i=0;i<response.length();i++){
@@ -114,9 +114,8 @@ public class FriendsFragment extends Fragment {
                                     JSONObject jsonObject = response.getJSONObject(i);
                                     Friend item = new Friend(
                                             jsonObject.getString("id"),
-                                            jsonObject.getString("content"),
-                                            new BigDecimal(jsonObject.getDouble("amount")),
-                                            jsonObject.getString("date"));
+                                            jsonObject.getString("username"),
+                                            jsonObject.getString("budget"));
                                     listdata.add(item);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -142,8 +141,7 @@ public class FriendsFragment extends Fragment {
                         Friend item = new Friend(
                                 "1",
                                 "kate",
-                                new BigDecimal(10),
-                                "2020-9-9");
+                                "500");
                         listdata.add(item);
 
 //                        recyclerView.setAdapter(new ItemListActivity.SimpleItemRecyclerViewAdapter(ExpenseFragment.this, listdata, false));

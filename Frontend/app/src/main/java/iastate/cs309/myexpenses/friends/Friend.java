@@ -4,14 +4,12 @@ import java.math.BigDecimal;
 
 public class Friend {
     public final String id;
-    public final BigDecimal amount;
     public final String content;
-    public final String date;
+    public final String budget;
 
-    public Friend(String id, String content, BigDecimal amount, String date) {
+    public Friend(String id, String content, String budget) {
         this.id = id;
         this.content = content;
-        this.amount = amount;
-        this.date = date;
+        this.budget = budget;
     }
 }

@@ -32,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     private static EditText mTextPassword;
     Button mButtonLogin;
     TextView mTextViewRegister;
-    ArrayList<User> list = new ArrayList<>();
+    private static ArrayList<User> list = new ArrayList<>();
     private static int userId;
 
     @Override
@@ -162,6 +162,10 @@ public class LoginActivity extends AppCompatActivity {
 
     public static int getUserId(){
         return userId;
+    }
+
+    public static ArrayList<User> getUsersList(){
+        return list;
     }
 
     public static String getUserUsername(){
