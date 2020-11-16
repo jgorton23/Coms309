@@ -30,4 +30,6 @@
     <string name="send_message">Send Message</string>
     <string name="message">Message</string>
     <string name="disconnect">Disconnect</string>
+    <string name="chat">Chat</string>
+    <string name="back">Back</string>
 </resources>

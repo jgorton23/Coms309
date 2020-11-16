@@ -3,6 +3,7 @@ package iastate.cs309.myexpenses.friends;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -20,6 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,6 +35,8 @@ import java.util.Comparator;
 
 import iastate.cs309.myexpenses.Expense;
 import iastate.cs309.myexpenses.R;
+import iastate.cs309.myexpenses.add.AddActivity;
+import iastate.cs309.myexpenses.chat.WebsocketActivity;
 import iastate.cs309.myexpenses.expense.MyExpenseRecyclerViewAdapter;
 import iastate.cs309.myexpenses.friends.dummy.DummyContent;
 import iastate.cs309.myexpenses.login.LoginActivity;
@@ -77,6 +82,7 @@ public class FriendsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_friends_list, container, false);
 
+
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
@@ -89,6 +95,17 @@ public class FriendsFragment extends Fragment {
             }
 //            recyclerView.setAdapter(new MyFriendsRecyclerViewAdapter(DummyContent.ITEMS));
         }
+
+        Button chatButton = view.findViewById(R.id.chatBtn);
+        chatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), WebsocketActivity.class);
+//                startActivity(intent);
+                startActivityForResult(intent,0);
+            }
+        });
+
         return view;
     }
     private void loadData(final RecyclerView recyclerView) {

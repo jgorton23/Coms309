@@ -38,6 +38,10 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".chat.WebsocketActivity"
+            android:label="WebsocketActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".ItemDetailActivity"
             android:label="@string/title_item_detail"
             android:parentActivityName=".ItemListActivity"

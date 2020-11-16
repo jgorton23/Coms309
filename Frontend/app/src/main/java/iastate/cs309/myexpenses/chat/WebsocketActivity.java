@@ -72,11 +72,20 @@ public class WebsocketActivity extends AppCompatActivity {
             }
         });
 
+        Button back = findViewById(R.id.backBtn);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
     }
 
     @Override
     protected void onDestroy() {
-       //TODO
+        //TODO
+        super.onDestroy();
     }
 
     private void connectWebSocket() {
