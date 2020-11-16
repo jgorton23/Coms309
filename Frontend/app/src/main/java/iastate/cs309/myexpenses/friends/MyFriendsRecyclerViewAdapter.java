@@ -47,7 +47,6 @@ public class MyFriendsRecyclerViewAdapter extends RecyclerView.Adapter<MyFriends
         holder.mIdView.setText(mValues.get(position).id);
         holder.mContentView.setText(mValues.get(position).content);
 //        holder.mAmountView.setText("$" + mValues.get(position).amount.toString());
-//        holder.mCategory.setText(mValues.get(position).date);
 
 
     }
@@ -60,13 +59,10 @@ public class MyFriendsRecyclerViewAdapter extends RecyclerView.Adapter<MyFriends
     public class ViewHolder extends RecyclerView.ViewHolder {
         final TextView mIdView;
         final TextView mContentView;
-        final TextView mAmountView;
-        public TextView mCategory;
 
         public ViewHolder(View view) {
             super(view);
             mIdView = (TextView) view.findViewById(R.id.item_number);
-            mAmountView = (TextView) view.findViewById(R.id.amount);
             mContentView = (TextView) view.findViewById(R.id.content);
         }
     }

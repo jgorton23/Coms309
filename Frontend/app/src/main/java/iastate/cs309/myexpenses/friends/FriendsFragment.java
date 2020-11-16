@@ -22,23 +22,18 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.math.BigDecimal;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import iastate.cs309.myexpenses.Expense;
 import iastate.cs309.myexpenses.R;
-import iastate.cs309.myexpenses.add.AddActivity;
 import iastate.cs309.myexpenses.chat.WebsocketActivity;
-import iastate.cs309.myexpenses.expense.MyExpenseRecyclerViewAdapter;
-import iastate.cs309.myexpenses.friends.dummy.DummyContent;
 import iastate.cs309.myexpenses.login.LoginActivity;
 
 /**
@@ -50,6 +45,7 @@ public class FriendsFragment extends Fragment {
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
+    private static ArrayList<Friend> list;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -82,18 +78,18 @@ public class FriendsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_friends_list, container, false);
 
+        View view1 = view.findViewById(R.id.list);
 
         // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+        if (view1 instanceof RecyclerView) {
+            Context context = view1.getContext();
+            RecyclerView recyclerView = (RecyclerView) view1;
             loadData(recyclerView);
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-//            recyclerView.setAdapter(new MyFriendsRecyclerViewAdapter(DummyContent.ITEMS));
         }
 
         Button chatButton = view.findViewById(R.id.chatBtn);
@@ -101,7 +97,6 @@ public class FriendsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), WebsocketActivity.class);
-//                startActivity(intent);
                 startActivityForResult(intent,0);
             }
         });
@@ -146,6 +141,7 @@ public class FriendsFragment extends Fragment {
                             }
                         });
 //                        recyclerView.setAdapter(new ItemListActivity.SimpleItemRecyclerViewAdapter(ExpenseFragment.this, listdata, false));
+                        list = listdata;
                         recyclerView.setAdapter(new MyFriendsRecyclerViewAdapter(listdata, getActivity()));
                     }
                 }, new Response.ErrorListener() {
@@ -186,4 +182,9 @@ public class FriendsFragment extends Fragment {
 
         requestQueue.add(jsonArrayRequest);
     }
+
+    public static ArrayList<Friend> getFriendsList(){
+        return list;
+    }
+
 }

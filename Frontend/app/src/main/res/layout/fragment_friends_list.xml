@@ -12,8 +12,6 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="200dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
         app:layoutManager="LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,21 +22,15 @@
         tools:context=".friends.FriendsFragment"
         tools:listitem="@layout/fragment_friends" />
 
-    <FrameLayout
-        android:id="@+id/parent_fragment_container"
+    <Button
+        android:id="@+id/chatBtn"
+        android:text="@string/chat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/list">
+        app:layout_constraintTop_toBottomOf="@+id/list"/>
 
-        <Button
-            android:id="@+id/chatBtn"
-            android:text="@string/chat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
