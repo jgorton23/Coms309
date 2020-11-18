@@ -40,8 +40,8 @@ public class Message {
 	
 	// @NotNull
     // @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "sent")
-    private Date sent = new Date();
+    // @Column(name = "sent")
+    // private Date sent = new Date();
 	
 	
 	public Message() {};
