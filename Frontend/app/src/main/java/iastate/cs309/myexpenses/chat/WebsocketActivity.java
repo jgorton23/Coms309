@@ -106,22 +106,23 @@ public class WebsocketActivity extends AppCompatActivity {
 
             @Override
             public void onOpen(ServerHandshake serverHandshake) {
-                //TODO
+                Log.i("Websocket", "Opened");
             }
 
             @Override
             public void onMessage(String msg) {
-                //TODO
+                Log.i("Websocket", "Message received");
+                mOutput.append("\n" + msg);
             }
 
             @Override
             public void onClose(int errorCode, String reason, boolean remote) {
-                //TODO
+                Log.i("Websocket", "Closed" + reason);
             }
 
             @Override
             public void onError(Exception e) {
-                //TODO
+                Log.i("Websocket", "Error" + e.getMessage());
             }
         };
         mWebSocketClient.connect();
