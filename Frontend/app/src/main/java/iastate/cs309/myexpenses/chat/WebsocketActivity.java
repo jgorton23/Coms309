@@ -17,6 +17,7 @@ import java.net.URISyntaxException;
 import androidx.appcompat.app.AppCompatActivity;
 
 import iastate.cs309.myexpenses.R;
+import iastate.cs309.myexpenses.login.LoginActivity;
 
 public class WebsocketActivity extends AppCompatActivity {
     private WebSocketClient mWebSocketClient;
@@ -96,8 +97,8 @@ public class WebsocketActivity extends AppCompatActivity {
              * To test the clientside without the backend, simply connect to an echo server such as:
              *  "ws://echo.websocket.org"
              */
-            uri = new URI("ws://10.0.2.2:8080/example"); // 10.0.2.2 = localhost
-            // uri = new URI("ws://echo.websocket.org");
+            uri = new URI("http://coms-309-ug-02.cs.iastate.edu:8080/chat/" + LoginActivity.getUserUsername());
+//             uri = new URI("ws://echo.websocket.org");
         } catch (URISyntaxException e) {
             e.printStackTrace();
             return;
