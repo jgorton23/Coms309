@@ -1,7 +1,6 @@
 package com.example.demo;
 
 
-import java.util.ArrayList;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -25,12 +24,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 @Controller      // this is needed for this to be an endpoint to springboot
-@ServerEndpoint(value = "/chat/{sender}/{receiver}")  // this is Websocket url
-public class Chat {
+@ServerEndpoint(value = "/chat/{username}")  // this is Websocket url
+public class ChatSocket {
 
   // cannot autowire static directly (instead we do it by the below
   // method
-	private static MessageDatabase msgDB; 
+	private static MessageRepository msgRepo; 
 
 	/*
    * Grabs the MessageRepository singleton from the Spring Application
@@ -40,37 +39,32 @@ public class Chat {
    * easiest.
 	 */
 	@Autowired
-	public void setMessageRepository(MessageDatabase db) {
-		msgDB = db;  // we are setting the static variable
+	public void setMessageRepository(MessageRepository repo) {
+		msgRepo = repo;  // we are setting the static variable
 	}
 
 	// Store all socket session and their corresponding username.
 	private static Map<Session, String> sessionUsernameMap = new Hashtable<>();
-    private static Map<String, Session> usernameSessionMap = new Hashtable<>();
-    private String sender;
-    private String receiver;
+	private static Map<String, Session> usernameSessionMap = new Hashtable<>();
 
-	private final Logger logger = LoggerFactory.getLogger(Chat.class);
+	private final Logger logger = LoggerFactory.getLogger(ChatSocket.class);
 
 	@OnOpen
-	public void onOpen(Session session, @PathParam("sender") String sender, @PathParam("receiver") String receiver) 
+	public void onOpen(Session session, @PathParam("username") String username) 
       throws IOException {
 
 		logger.info("Entered into Open");
 
     // store connecting user information
-		sessionUsernameMap.put(session, sender);
-        usernameSessionMap.put(sender, session);
-        this.sender = sender;
-        this.receiver = receiver;
+		sessionUsernameMap.put(session, username);
+		usernameSessionMap.put(username, session);
 
 		//Send chat history to the newly connected user
-		sendMessage(sender, getChatHistory(sender, receiver));
+		sendMessageToPArticularUser(username, getChatHistory());
 		
     // broadcast that new user joined
-		String message = "User:" + sender + " has Joined the Chat";
-        sendMessage(sender, message);
-        sendMessage(receiver, message);
+		String message = "User:" + username + " has Joined the Chat";
+		broadcast(message);
 	}
 
 
@@ -79,24 +73,23 @@ public class Chat {
 
 		// Handle new messages
 		logger.info("Entered into Message: Got Message:" + message);
-        String username = sender;//sessionUsernameMap.get(session);
-        String destUsername = receiver;
+		String username = sessionUsernameMap.get(session);
 
-        // Direct message to a user using the format "@username <message>"
-		// if (message.startsWith("@")) {
-		// 	String destUsername = message.split(" ")[0].substring(1); 
+    // Direct message to a user using the format "@username <message>"
+		if (message.startsWith("@")) {
+			String destUsername = message.split(" ")[0].substring(1); 
 
-            // send the message to the sender and receiver
-			sendMessage(destUsername, "[DM] " + username + ": " + message);
-			sendMessage(username, "[DM] " + username + ": " + message);
+      // send the message to the sender and receiver
+			sendMessageToPArticularUser(destUsername, "[DM] " + username + ": " + message);
+			sendMessageToPArticularUser(username, "[DM] " + username + ": " + message);
 
-		//} 
-        // else { // broadcast
-		// 	broadcast(username + ": " + message);
-		// }
+		} 
+    else { // broadcast
+			broadcast(username + ": " + message);
+		}
 
 		// Saving chat history to repository
-		msgDB.save(new Message(username, destUsername, message));
+		msgRepo.save(new Message(username, message));
 	}
 
 
@@ -104,14 +97,14 @@ public class Chat {
 	public void onClose(Session session) throws IOException {
 		logger.info("Entered into Close");
 
-    // // remove the user connection information // idk what should happen on close but not this
+    // remove the user connection information
 		String username = sessionUsernameMap.get(session);
 		sessionUsernameMap.remove(session);
 		usernameSessionMap.remove(username);
 
-    // // broadcase that the user disconnected
-	// 	String message = username + " disconnected";
-	// 	broadcast(message);
+    // broadcase that the user disconnected
+		String message = username + " disconnected";
+		broadcast(message);
 	}
 
 
@@ -123,9 +116,9 @@ public class Chat {
 	}
 
 
-	private void sendMessage(String receiver, String message) {
+	private void sendMessageToPArticularUser(String username, String message) {
 		try {
-			usernameSessionMap.get(receiver).getBasicRemote().sendText(message);
+			usernameSessionMap.get(username).getBasicRemote().sendText(message);
 		} 
     catch (IOException e) {
 			logger.info("Exception: " + e.getMessage().toString());
@@ -134,42 +127,33 @@ public class Chat {
 	}
 
 
-    // useless - just from tutorial saved for now in case I want to reference while writing something useful
-    //
-	// private void broadcast(String message) {
-	// 	sessionUsernameMap.forEach((session, username) -> {
-	// 		try {
-	// 			session.getBasicRemote().sendText(message);
-	// 		} 
-    //   catch (IOException e) {
-	// 			logger.info("Exception: " + e.getMessage().toString());
-	// 			e.printStackTrace();
-	// 		}
+	private void broadcast(String message) {
+		sessionUsernameMap.forEach((session, username) -> {
+			try {
+				session.getBasicRemote().sendText(message);
+			} 
+      catch (IOException e) {
+				logger.info("Exception: " + e.getMessage().toString());
+				e.printStackTrace();
+			}
 
-	// 	});
+		});
 
-	// }
+	}
 	
 
   // Gets the Chat history from the repository
-	private String getChatHistory(String sender, String receiver) {
-        List<Message> l = msgDB.findAll();
-        List<Message> messages = new ArrayList<>();
-        for(int i = 0; i < l.size(); i++){
-            if(l.get(i).getSender() == sender && l.get(i).getReceiver() == receiver){
-                messages.add(l.get(i));
-            }
-        }
+	private String getChatHistory() {
+		List<Message> messages = msgRepo.findAll();
     
     // convert the list to a string
 		StringBuilder sb = new StringBuilder();
 		if(messages != null && messages.size() != 0) {
 			for (Message message : messages) {
-				sb.append(message.getSender() + ": " + message.getContent() + "\n");
+				sb.append(message.getUserName() + ": " + message.getContent() + "\n");
 			}
 		}
 		return sb.toString();
 	}
 
 }
-
