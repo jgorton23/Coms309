@@ -25,11 +25,11 @@ import org.springframework.stereotype.Controller;
 
 @Controller      // this is needed for this to be an endpoint to springboot
 @ServerEndpoint(value = "/chat/{username}")  // this is Websocket url
-public class ChatSocket {
+public class Chat {
 
   // cannot autowire static directly (instead we do it by the below
   // method
-	private static MessageRepository msgRepo; 
+	private static MessageDatabase msgRepo; 
 
 	/*
    * Grabs the MessageRepository singleton from the Spring Application
@@ -39,7 +39,7 @@ public class ChatSocket {
    * easiest.
 	 */
 	@Autowired
-	public void setMessageRepository(MessageRepository repo) {
+	public void setMessageRepository(MessageDatabase repo) {
 		msgRepo = repo;  // we are setting the static variable
 	}
 
