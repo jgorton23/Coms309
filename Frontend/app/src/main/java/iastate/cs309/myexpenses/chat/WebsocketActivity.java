@@ -48,14 +48,15 @@ public class WebsocketActivity extends AppCompatActivity {
         bConnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO
+                connectWebSocket();
             }
         });
 
         bDisconnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO
+                mWebSocketClient.close();
+                mOutput.setText("");
             }
         });
 
@@ -67,7 +68,7 @@ public class WebsocketActivity extends AppCompatActivity {
 
                 // If the message is not empty, send the message
                 if(message != null && message.length() > 0){
-                    //TODO
+                    mWebSocketClient.send(message);
                 }
             }
         });
@@ -84,8 +85,8 @@ public class WebsocketActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        //TODO
         super.onDestroy();
+        mWebSocketClient.close();
     }
 
     private void connectWebSocket() {
@@ -106,22 +107,23 @@ public class WebsocketActivity extends AppCompatActivity {
 
             @Override
             public void onOpen(ServerHandshake serverHandshake) {
-                //TODO
+                Log.i("Websocket", "Opened");
             }
 
             @Override
             public void onMessage(String msg) {
-                //TODO
+                Log.i("Websocket", "Message received");
+                mOutput.append("\n" + msg);
             }
 
             @Override
             public void onClose(int errorCode, String reason, boolean remote) {
-                //TODO
+                Log.i("Websocket", "Closed" + reason);
             }
 
             @Override
             public void onError(Exception e) {
-                //TODO
+                Log.i("Websocket", "Error" + e.getMessage());
             }
         };
         mWebSocketClient.connect();
