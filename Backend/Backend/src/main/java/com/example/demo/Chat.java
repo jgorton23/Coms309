@@ -47,7 +47,7 @@ public class Chat {
 	private static Map<Session, String> sessionUsernameMap = new Hashtable<>();
 	private static Map<String, Session> usernameSessionMap = new Hashtable<>();
 
-	private final Logger logger = LoggerFactory.getLogger(ChatSocket.class);
+	private final Logger logger = LoggerFactory.getLogger(Chat.class);
 
 	@OnOpen
 	public void onOpen(Session session, @PathParam("username") String username) 
