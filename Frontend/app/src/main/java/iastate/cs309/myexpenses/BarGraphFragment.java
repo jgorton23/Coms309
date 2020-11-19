@@ -88,10 +88,15 @@ public class BarGraphFragment extends Fragment implements SeekBar.OnSeekBarChang
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_bar_graph, container, false);
 
-        chart = rootView.findViewById(R.id.chart1);
+        initChart(rootView);
 
         loadData();
         return rootView;
+    }
+
+    public BarChart initChart(View rootView) {
+        chart = rootView.findViewById(R.id.chart1);
+        return chart;
     }
 
     @Override
