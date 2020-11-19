@@ -85,6 +85,14 @@ class Person {
 	public int getBudget() { return budget; }
 	public void setBudget(int b) { budget = b; }
 	
+	public int totalSubscriptionCost() {
+		int total = 0;
+		for (int i = 0; i < subscriptionsBought.size(); i++) {
+			total += subscriptionsBought.get(i).getPrice();
+		}
+		return total;
+	}
+	
 	public boolean overBudget() {
 		int total = 0;
 		for (int i = 0; i < itemsBought.size(); i++) {

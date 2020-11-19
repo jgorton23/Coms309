@@ -51,7 +51,7 @@ class BackendApplicationTests {
 	}
 	
 	@Test
-	public void testFriend() {
+	public void testAddFriend() {
 		Person p = new Person();
 		ArrayList<Person> friends = new ArrayList<Person>();
 		p.setFriends(friends);
@@ -59,5 +59,20 @@ class BackendApplicationTests {
 		p.addFriend(friend);
 		
 		assertThat(friend == p.getFriends());
+	}
+	
+	@Test
+	public void testTotalSubscriptionCost() {
+		Person p = new Person();
+		ArrayList<Subscription> subscriptions = new ArrayList<Subscription>();
+		p.setSubscriptionsBought(subscriptions);
+		Subscription subscription1 = new Subscription();
+		subscription1.setPrice( (double) 50);
+		p.subscribe(subscription1);
+		Subscription subscription2 = new Subscription();
+		subscription2.setPrice( (double) 150);
+		p.subscribe(subscription2);
+		
+		assertThat(p.totalSubscriptionCost() == 200);
 	}
 }
