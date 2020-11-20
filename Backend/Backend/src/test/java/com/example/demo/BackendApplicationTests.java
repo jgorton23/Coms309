@@ -75,4 +75,18 @@ class BackendApplicationTests {
 		
 		assertThat(p.totalSubscriptionCost() == 200);
 	}
+
+	@Test
+	public void testGetMessageContent() {
+		String content = "this is the content";
+		Message m = new Message("jacob", content);
+		assertThat(m.getContent() == "this is the content");
+	}
+
+	@Test
+	public void testGetMessageUsername() {
+		String content = "";
+		Message m = new Message("jacob", content);
+		assertThat(m.getUserName() == "jacob");
+	}
 }
